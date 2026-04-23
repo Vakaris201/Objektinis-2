@@ -21,7 +21,11 @@ using std::setw;
 using std::fixed;
 using std::setprecision;
 
+const double ND_kof = 0.4;
+const double EGZAM_kof = 0.6;
 
+double mediana(vector<double> paz);
+double vidurkis(vector<double> paz);
 
 class Studentas {
 private:
@@ -34,8 +38,7 @@ private:
 public:
     Studentas() : egzam_(0.0), rez_(0.0) {}
     Studentas(istream& is);
-
-
+    
     inline string vardas() const { return vardas_; }
     inline string pavarde() const { return pavarde_; }
     inline double egzam() const { return egzam_; }
@@ -44,13 +47,15 @@ public:
     double galBalas(double (*)(vector<double>) = mediana) const;
     void skaiciuotiRez(double (*)(vector<double>) = mediana);
     istream& readStudent(istream& is);
+    
+    ~Studentas() = default;
 };
 
 bool compare(const Studentas& a, const Studentas& b);
 bool comparePagalPavarde(const Studentas& a, const Studentas& b); 
 bool comparePagalRez(const Studentas& a, const Studentas& b); 
 
-
-
+void rusiavimas(vector<Studentas>& A, int sort_choice);
+void print(ostream& os, int pasirinkimas, const vector<Studentas>& A, int stud_skaicius);
 
 #endif 
