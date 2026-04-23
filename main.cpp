@@ -36,7 +36,7 @@ int main() {
     srand(time(0));
     system("dir *.txt");
     std::ios::sync_with_stdio(false);
-    vector<studentas> A;
+    vector<Studentas> A;
     int temp, stud_skaicius = 0, index = 0;
     string f_choice, filename;
     cout << "Ar noretumet skaityti duomenis is failo? (t/n) ";
@@ -66,17 +66,9 @@ int main() {
         auto start = high_resolution_clock::now();
         while(getline(fin, line)) {
             stringstream ss(line);
-            studentas S;
-            ss >> S.vardas >> S.pavarde;
-            int pazymys;
-            while(ss >> pazymys) {
-                S.paz.push_back(pazymys);
-            }
-            if(!S.paz.empty()) {
-                S.egzam = S.paz.back();
-                S.paz.pop_back();
-            }
-            A.push_back(S);
+            Studentas S;
+            S.readStudent(ss);
+            A.push_back(move(S));
             stud_skaicius++;
         }
         fin.close();
@@ -114,36 +106,38 @@ int main() {
             "Iveskite teigiama skaiciu."
         );
         while(true) {
-            studentas S;
+            string vard, pavard;
+            vector<double> paz_temp;
+            double egz_temp;
             if(eiga == 1 || eiga == 2) {
-                S.vardas = getWordInput(
+                vard = getWordInput(
                     "Iveskite varda: ",
                     "Vardas turi buti sudarytas tik is raidziu."
                 );
-                S.pavarde = getWordInput(
+                pavard = getWordInput(
                     "Iveskite pavarde: ",
                     "Pavarde turi buti sudaryta tik is raidziu."
                 );
             }
             else if(eiga == 3) {
                 zmogus z = gen();
-                S.vardas = z.vardas;
-                S.pavarde = z.pavarde;
-                cout << "Sugeneruotas zmogus: " << S.vardas << " " << S.pavarde << endl;
+                vard = z.vardas;
+                pavard = z.pavarde;
+                cout << "Sugeneruotas zmogus: " << vard << " " << pavard << endl;
             }
             if(eiga == 1) {
                 while(true) {
                     temp = getInput<int,0,10>(
-                        "Iveskite " + std::to_string(S.paz.size() + 1) + " semestro pazymi (0 - baigti): ",
+                        "Iveskite " + std::to_string(paz_temp.size() + 1) + " semestro pazymi (0 - baigti): ",
                         "Iveskite skaiciu tarp 0 ir 10"
                     );
                     if(temp == 0) break;
-                    S.paz.push_back(temp);
+                    paz_temp.push_back(temp);
                 }
-            S.egzam = getInput<int,1,10>(
-                "Iveskite egzamino pazymi: ", 
-                "Iveskite skaiciu tarp 1 ir 10."
-            );
+                egz_temp = getInput<int,1,10>(
+                    "Iveskite egzamino pazymi: ", 
+                    "Iveskite skaiciu tarp 1 ir 10."
+                );
             }
             else if(eiga == 2 || eiga == 3) {
                 int paz_kiek;
@@ -154,12 +148,20 @@ int main() {
                 for(int i = 0; i < paz_kiek; i++) {
                     temp = rand() % 10 + 1;
                     cout << i+1 << " Sugeneruotas pazymys: " << temp << endl;
-                    S.paz.push_back(temp);
+                    paz_temp.push_back(temp);
                 }
-                S.egzam = rand() % 10 + 1;
-                cout << "Sugeneruotas egzamino pazymys: " << S.egzam << endl;
+                egz_temp = rand() % 10 + 1;
+                cout << "Sugeneruotas egzamino pazymys: " << egz_temp << endl;
             }
-            A.push_back(S);
+            stringstream ss;
+            ss << vard << " " << pavard;
+            for(int i = 0; i < paz_temp.size(); i++) {
+                ss << " " << paz_temp[i];
+            }
+            ss << " " << egz_temp;
+            Studentas S;
+            S.readStudent(ss);
+            A.push_back(move(S));
             string student_choice;
             while(true) {
                 if(index < stud_skaicius - 1) break;
