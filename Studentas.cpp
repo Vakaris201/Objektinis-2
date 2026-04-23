@@ -1,4 +1,5 @@
 #include "Studentas.h"
+#include "Konstantos.h"
 
 Studentas::Studentas(istream& is) {
     readStudent(is);

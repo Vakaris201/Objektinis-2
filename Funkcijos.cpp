@@ -8,6 +8,7 @@
 #include <string>
 #include <chrono>
 #include "Funkcijos.h"
+#include "Konstantos.h"
 
 using std::cout;
 using std::sort;

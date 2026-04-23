@@ -16,9 +16,6 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-const double ND_kof = 0.4;
-const double EGZAM_kof = 0.6;
-
 struct studentas {
     string vardas;
     string pavarde;

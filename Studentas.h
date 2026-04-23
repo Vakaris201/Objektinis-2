@@ -21,9 +21,6 @@ using std::setw;
 using std::fixed;
 using std::setprecision;
 
-const double ND_kof = 0.4;
-const double EGZAM_kof = 0.6;
-
 double mediana(vector<double> paz);
 double vidurkis(vector<double> paz);
 
@@ -57,5 +54,7 @@ bool comparePagalRez(const Studentas& a, const Studentas& b);
 
 void rusiavimas(vector<Studentas>& A, int sort_choice);
 void print(ostream& os, int pasirinkimas, const vector<Studentas>& A, int stud_skaicius);
+void outputas(vector<Studentas> &A, int stud_skaicius, double test_time, string filename);
+
 
 #endif 
