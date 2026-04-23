@@ -182,21 +182,21 @@ int main() {
         outputas(A, stud_skaicius, 0, "");
     }
 }
-void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string filename) {
+void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string filename) {
     int grade_choice;
     grade_choice = getInput<int,1,2>(
         "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ",
         "Iveskite 1 arba 2."
     );
+    double (*strategija)(vector<double>);
     if(grade_choice == 1) {
-        for(int i = 0; i < stud_skaicius; i++) {
-            vidurkis(A[i]);
-        }
+        strategija = vidurkis;
     }
     else {
-        for(int i = 0; i < stud_skaicius; i++) {
-            mediana(A[i]);
-        }
+        strategija = mediana;
+    }
+    for(int i = 0; i < stud_skaicius; i++) {
+        A[i].skaiciuotiRez(strategija);
     }
     string divide_choice;
     cout << "Ar norite atskirti vargsiukus nuo kietiaku? (t/n) ";
@@ -204,32 +204,32 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string 
         "Iveskite t arba n"
     );
     int sort_choice;
+    sort_choice = getInput<int,1,3>(
+        "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
+        "Iveskite 1, 2 arba 3."
+    );
     if(divide_choice == "t" || divide_choice == "T") {
-        int strategija;
+        int divide_strategy;
         cout << "Kuria skaidymo strategija norite naudoti? " << endl;
         cout << "1 - Du nauji konteineriai " << endl;
         cout << "2 - Vienas naujas konteineris " << endl;
         cout << "3 - Efektyvus darbus su konteineriais " << endl;
-        strategija = getInput<int,1,3>(
+        divide_strategy = getInput<int,1,3>(
             "Jusu pasirinkimas: ",
             "Iveskite 1, 2 arba 3."
         );
-        sort_choice = getInput<int,1,3>(
-            "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
-            "Iveskite 1, 2 arba 3."
-        );
-        if(strategija == 1) {
+        if(divide_strategy == 1) {
             auto start1 = high_resolution_clock::now();
             rusiavimas(A, sort_choice);
             auto end1 = high_resolution_clock::now();
             duration<double> diff1 = end1 - start1;
-            vector<studentas> vargsiukai;
-            vector<studentas> kietiakai;
-            vargsiukai.reserve(6000000);
-            kietiakai.reserve(6000000);
+            vector<Studentas> vargsiukai;
+            vector<Studentas> kietiakai;
+            vargsiukai.reserve(stud_skaicius);
+            kietiakai.reserve(stud_skaicius);
             auto start2 = high_resolution_clock::now();
             for(int i = 0; i < stud_skaicius; i++) {
-                if(A[i].rez < 5) {
+                if(A[i].rez() < 5) {
                     vargsiukai.push_back(A[i]);
                 }
                 else {
@@ -257,17 +257,17 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string 
             cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
             cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
         }
-        else if (strategija == 2) {
+        else if (divide_strategy == 2) {
             auto start1 = high_resolution_clock::now();
             rusiavimas(A, sort_choice);
             auto end1 = high_resolution_clock::now();
             duration<double> diff1 = end1 - start1;
-            vector<studentas> vargsiukai;
-            vargsiukai.reserve(6000000);
+            vector<Studentas> vargsiukai;
+            vargsiukai.reserve(stud_skaicius);
             auto start2 = high_resolution_clock::now();
             for(auto it = A.end(); it != A.begin();) {
                 it--;
-                if(it->rez < 5) {
+                if(it->rez() < 5) {
                     vargsiukai.push_back(*it);
                     it = A.erase(it);
                 }
@@ -294,21 +294,21 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string 
             cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
             cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
         }
-        else if (strategija == 3) {
+        else if (divide_strategy == 3) {
             auto start1 = high_resolution_clock::now();
             rusiavimas(A, sort_choice);
             auto end1 = high_resolution_clock::now();
             duration<double> diff1 = end1 - start1;
-            vector<studentas> vargsiukai;
-            vargsiukai.reserve(6000000);
+            vector<Studentas> vargsiukai;
+            vargsiukai.reserve(stud_skaicius);
             auto start2 = high_resolution_clock::now();
             auto split_it = std::stable_partition(A.begin(), A.end(),
-                [](const studentas& s) {
-                    return s.rez >= 5;
+                [](const Studentas& s) {
+                    return s.rez() >= 5;
                 }
             );
             for(auto it = split_it; it != A.end(); it++) {
-                vargsiukai.push_back(std::move(*it));
+                vargsiukai.push_back(move(*it));
             }
             A.erase(split_it, A.end());
             auto end2 = high_resolution_clock::now();
@@ -334,10 +334,6 @@ void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string 
         }
     }
     else {
-        sort_choice = getInput<int,1,3>(
-            "Kaip surusiuoti rezultatus? (1 - pagal varda, 2 - pagal pavarde, 3 - pagal galutini bala) ",
-            "Iveskite 1, 2 arba 3."
-        );
         rusiavimas(A, sort_choice);
         int output_choice;
         output_choice = getInput<int,1,2>(
