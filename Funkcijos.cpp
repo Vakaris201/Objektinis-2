@@ -1,16 +1,14 @@
 #include <iostream>
 #include <algorithm>
+#include <numeric>
 #include <fstream>
 #include <iomanip>
-#include <vector>
-#include <deque>
-#include <list>
-#include <string>
 #include <chrono>
+#include <stdexcept>
 #include "Funkcijos.h"
-#include "Konstantos.h"
 
 using std::cout;
+using std::cin;
 using std::sort;
 using std::vector;
 using std::deque;
@@ -18,7 +16,6 @@ using std::list;
 using std::string;
 using std::endl;
 using std::left;
-using std::right;
 using std::setw;
 using std::fixed;
 using std::setprecision;
@@ -34,21 +31,21 @@ void clearInput() {
 
 void vidurkis(studentas &S) {
     if (S.paz.empty()) {
-        S.rez = S.egzam * EGZAM_kof;
+        S.rez = S.egzam * 0.6;
     }    
     else {
         double sum = 0;
         for(int j = 0; j < S.paz.size(); j++) {
             sum += S.paz[j];
         }
-        S.rez = sum / S.paz.size() * ND_kof + S.egzam * EGZAM_kof;
+        S.rez = sum / S.paz.size() * 0.4 + S.egzam * 0.6;
     }
 }
 
 void mediana(studentas &S) {
     double mediana;
     if (S.paz.empty()) {
-        S.rez = S.egzam * EGZAM_kof;
+        S.rez = S.egzam * 0.6;
     } 
     else {
         sort(S.paz.begin(), S.paz.end());
@@ -58,7 +55,7 @@ void mediana(studentas &S) {
         else {
             mediana = S.paz[S.paz.size() / 2];
         }
-        S.rez = mediana * ND_kof + S.egzam * EGZAM_kof;
+        S.rez = mediana * 0.4 + S.egzam * 0.6;
     }
 }
 
@@ -116,7 +113,7 @@ void rusiavimas(list<studentas> &A, int sort_choice) {
     }
 }
 
-string raide_choice(string prompt1) {
+string raide_choice(const string& prompt1) {
     string choice;
     while(true) {
         try {
@@ -134,7 +131,7 @@ string raide_choice(string prompt1) {
     }
 }
 
-string getWordInput(string prompt1, string prompt2) {
+string getWordInput(const string& prompt1, const string& prompt2) {
     string input;
     while(true) {
         try {
@@ -187,7 +184,7 @@ void print(std::ostream& os, int pasirinkimas, list<studentas>& A, int stud_skai
     }
 }
 
-void failu_generavimas(string filename) {
+void failu_generavimas(const string& filename) {
     int pazymys;
     int dydis = stoi(filename);
     auto start = high_resolution_clock::now();

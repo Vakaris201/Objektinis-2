@@ -1,26 +1,25 @@
 #include "Studentas.h"
-#include "Konstantos.h"
 
 Studentas::Studentas(istream& is) {
     readStudent(is);
 }
 
-double mediana(std::vector<double> paz) {
-    double mediana;
+double mediana(std::vector<int>& paz) {
+    double med;
     if (paz.empty()) {
         return 0;
     }
     std::sort(paz.begin(), paz.end());
     if (paz.size() % 2 == 0) {
-        mediana = (paz[paz.size() / 2 - 1] + paz[paz.size() / 2]) / 2.0;
+        med = (paz[paz.size() / 2 - 1] + paz[paz.size() / 2]) / 2.0;
     }
     else {
-        mediana = paz[paz.size() / 2];
+        med = paz[paz.size() / 2];
     }
-    return mediana;
+    return med;
 }
 
-double vidurkis(std::vector<double> paz) {
+double vidurkis(std::vector<int>& paz) {
     if (paz.empty()) {
         return 0;
     }
@@ -31,16 +30,16 @@ double vidurkis(std::vector<double> paz) {
     return sum / paz.size();
 }
 
-double Studentas::galBalas(double (*strategija)(vector<double>)) const {
+double Studentas::galBalas(double (*strategija)(vector<int>&)) {
     if (paz_.empty()) {
-        return egzam_ * EGZAM_kof;
+        return egzam_ * 0.6;
     }
     else {
-        return strategija(paz_) * ND_kof + egzam_ * EGZAM_kof;
+        return strategija(paz_) * 0.4 + egzam_ * 0.6;
     }
 }
 
-void Studentas::skaiciuotiRez(double (*strategija)(vector<double>)) {
+void Studentas::skaiciuotiRez(double (*strategija)(vector<int>&)) {
     rez_ = galBalas(strategija);
 }
 
@@ -50,18 +49,14 @@ istream& Studentas::readStudent(istream& is) {
     rez_ = 0.0;
     if (!(is >> vardas_ >> pavarde_))
         return is;
-
-    vector<double> visi;
-    double val;
+    int val;
     while (is >> val)
-        visi.push_back(val);
+        paz_.push_back(val);
 
-    if (!visi.empty()) {
-        egzam_ = visi.back();
-        visi.pop_back();
-        paz_ = move(visi);
+    if (!paz_.empty()) {
+        egzam_ = paz_.back();
+        paz_.pop_back();
     }
-    skaiciuotiRez();
     is.clear();
     return is;
 }

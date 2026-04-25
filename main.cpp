@@ -21,8 +21,6 @@ using std::cin;
 using std::setw;
 using std::left;
 using std::endl;
-using std::fixed;
-using std::setprecision;
 using std::ifstream;
 using std::ofstream;
 using std::getline;
@@ -56,16 +54,17 @@ int main() {
             }
             catch (std::exception& e) {
                 cout << "Klaida: " << e.what() << " Pabandykite dar karta." << endl;
-                continue;
             }
         }
         A.reserve(10000000);
         string line;
         ifstream fin(filename);
         getline(fin, line);
+        stringstream ss;
         auto start = high_resolution_clock::now();
         while(getline(fin, line)) {
-            stringstream ss(line);
+            ss.clear();
+            ss.str(line);
             Studentas S;
             S.readStudent(ss);
             A.push_back(move(S));
@@ -107,8 +106,8 @@ int main() {
         );
         while(true) {
             string vard, pavard;
-            vector<double> paz_temp;
-            double egz_temp;
+            vector<int> paz_temp;
+            int egz_temp;
             if(eiga == 1 || eiga == 2) {
                 vard = getWordInput(
                     "Iveskite varda: ",
@@ -188,18 +187,14 @@ void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string 
         "Isvesti vidurki ar mediana? (1 - vidurkis, 2 - mediana) ",
         "Iveskite 1 arba 2."
     );
-    double (*strategija)(vector<double>);
-    if(grade_choice == 1) {
-        strategija = vidurkis;
-    }
-    else {
-        strategija = mediana;
-    }
+    double (*strategija)(vector<int>&);
+    (grade_choice == 1)? strategija = vidurkis : strategija = mediana;
+
     for(int i = 0; i < stud_skaicius; i++) {
         A[i].skaiciuotiRez(strategija);
     }
-    string divide_choice;
     cout << "Ar norite atskirti vargsiukus nuo kietiaku? (t/n) ";
+    string divide_choice;
     divide_choice = raide_choice(
         "Iveskite t arba n"
     );
@@ -218,16 +213,16 @@ void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string 
             "Jusu pasirinkimas: ",
             "Iveskite 1, 2 arba 3."
         );
+        auto start1 = high_resolution_clock::now();
+        rusiavimas(A, sort_choice);
+        auto end1 = high_resolution_clock::now();
+        duration<double> diff1 = end1 - start1;
+        vector<Studentas> vargsiukai;
+        vector<Studentas> kietiakai;
+        auto start2 = high_resolution_clock::now();
         if(divide_strategy == 1) {
-            auto start1 = high_resolution_clock::now();
-            rusiavimas(A, sort_choice);
-            auto end1 = high_resolution_clock::now();
-            duration<double> diff1 = end1 - start1;
-            vector<Studentas> vargsiukai;
-            vector<Studentas> kietiakai;
-            vargsiukai.reserve(stud_skaicius);
-            kietiakai.reserve(stud_skaicius);
-            auto start2 = high_resolution_clock::now();
+            vargsiukai.reserve(6000000);
+            kietiakai.reserve(6000000);
             for(int i = 0; i < stud_skaicius; i++) {
                 if(A[i].rez() < 5) {
                     vargsiukai.push_back(A[i]);
@@ -236,35 +231,9 @@ void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string 
                     kietiakai.push_back(A[i]);
                 }
             }
-            auto end2 = high_resolution_clock::now();
-            duration<double> diff2 = end2 - start2;
-            ofstream v_fout("vargsiukai.txt");
-            ofstream k_fout("kietiakai.txt");
-            auto start3 = high_resolution_clock::now();
-            print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
-            auto end3 = high_resolution_clock::now();
-            duration<double> diff3 = end3 - start3;
-            auto start4 = high_resolution_clock::now();
-            print(k_fout, grade_choice, kietiakai, kietiakai.size());
-            auto end4 = high_resolution_clock::now();
-            duration<double> diff4 = end4 - start4;
-            v_fout.close();
-            k_fout.close();
-            cout << filename << " Failo skaitymo laikas: " << test_time << endl;
-            cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
-            cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
-            cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
-            cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
-            cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
         }
-        else if (divide_strategy == 2) {
-            auto start1 = high_resolution_clock::now();
-            rusiavimas(A, sort_choice);
-            auto end1 = high_resolution_clock::now();
-            duration<double> diff1 = end1 - start1;
-            vector<Studentas> vargsiukai;
-            vargsiukai.reserve(stud_skaicius);
-            auto start2 = high_resolution_clock::now();
+        else if(divide_strategy == 2) {
+            vargsiukai.reserve(6000000);
             for(auto it = A.end(); it != A.begin();) {
                 it--;
                 if(it->rez() < 5) {
@@ -273,65 +242,44 @@ void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string 
                 }
             }
             std::reverse(vargsiukai.begin(), vargsiukai.end());
-            auto end2 = high_resolution_clock::now();
-            duration<double> diff2 = end2 - start2;
-            ofstream v_fout("vargsiukai.txt");
-            ofstream k_fout("kietiakai.txt");
-            auto start3 = high_resolution_clock::now();
-            print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
-            auto end3 = high_resolution_clock::now();
-            duration<double> diff3 = end3 - start3;
-            auto start4 = high_resolution_clock::now();
-            print(k_fout, grade_choice, A, A.size());   
-            auto end4 = high_resolution_clock::now();
-            duration<double> diff4 = end4 - start4;
-            v_fout.close();
-            k_fout.close();
-            cout << filename << " Failo skaitymo laikas: " << test_time << endl;
-            cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
-            cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
-            cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
-            cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
-            cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
         }
-        else if (divide_strategy == 3) {
-            auto start1 = high_resolution_clock::now();
-            rusiavimas(A, sort_choice);
-            auto end1 = high_resolution_clock::now();
-            duration<double> diff1 = end1 - start1;
-            vector<Studentas> vargsiukai;
-            vargsiukai.reserve(stud_skaicius);
-            auto start2 = high_resolution_clock::now();
+        else if(divide_strategy == 3) {
             auto split_it = std::stable_partition(A.begin(), A.end(),
                 [](const Studentas& s) {
                     return s.rez() >= 5;
                 }
             );
+            vargsiukai.reserve(std::distance(split_it, A.end()));
             for(auto it = split_it; it != A.end(); it++) {
                 vargsiukai.push_back(move(*it));
             }
             A.erase(split_it, A.end());
-            auto end2 = high_resolution_clock::now();
-            duration<double> diff2 = end2 - start2;
-            ofstream v_fout("vargsiukai.txt");
-            ofstream k_fout("kietiakai.txt");
-            auto start3 = high_resolution_clock::now();
-            print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
-            auto end3 = high_resolution_clock::now();
-            duration<double> diff3 = end3 - start3;
-            auto start4 = high_resolution_clock::now();
-            print(k_fout, grade_choice, A, A.size());   
-            auto end4 = high_resolution_clock::now();
-            duration<double> diff4 = end4 - start4;
-            v_fout.close();
-            k_fout.close();
-            cout << filename << " Failo skaitymo laikas: " << test_time << endl;
-            cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
-            cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
-            cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
-            cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
-            cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
         }
+        auto end2 = high_resolution_clock::now();
+        duration<double> diff2 = end2 - start2;
+        ofstream v_fout("vargsiukai.txt");
+        ofstream k_fout("kietiakai.txt");
+        auto start3 = high_resolution_clock::now();
+        print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
+        auto end3 = high_resolution_clock::now();
+        duration<double> diff3 = end3 - start3;
+        auto start4 = high_resolution_clock::now();
+        if(divide_strategy == 1) {
+            print(k_fout, grade_choice, kietiakai, kietiakai.size());
+        }
+        else {
+            print(k_fout, grade_choice, A, A.size());
+        }
+        auto end4 = high_resolution_clock::now();
+        duration<double> diff4 = end4 - start4;
+        v_fout.close();
+        k_fout.close();
+        cout << filename << " Failo skaitymo laikas: " << test_time << endl;
+        cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
+        cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
+        cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
+        cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
+        cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
     }
     else {
         rusiavimas(A, sort_choice);
@@ -343,19 +291,15 @@ void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string 
         auto start = high_resolution_clock::now();
         if(output_choice == 1) {
             print(cout, grade_choice, A, stud_skaicius);
-            auto end = high_resolution_clock::now();
-            duration<double> diff = end - start;
-            cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
         }
         else {
             ofstream fout("rezultatai.txt");
             print(fout, grade_choice, A, stud_skaicius);
-            auto end = high_resolution_clock::now();
-            duration<double> diff = end - start;
             cout << "Rezultatai faile - rezultatai.txt" << endl;
-            cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
+            fout.close();
         }
+        auto end = high_resolution_clock::now();
+        duration<double> diff = end - start;
+        cout << "Duomenu isvedimas uztruko: " << diff.count() << " sekundziu." << endl;
     }
 }
-
-

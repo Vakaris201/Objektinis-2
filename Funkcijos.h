@@ -7,6 +7,7 @@
 #include <list>
 #include <string>
 #include <stdexcept>
+#include <climits>
 
 using std::vector;
 using std::deque;
@@ -25,29 +26,29 @@ struct studentas {
 };
 
 void clearInput();
-void vidurkis(studentas &S);
-void mediana(studentas &S);
-void rusiavimas(vector<studentas> &A, int sort_choice);
-void rusiavimas(deque<studentas> &A, int sort_choice);
-void rusiavimas(list<studentas> &A, int sort_choice);
-void outputas(vector<studentas> &A, int stud_skaicius, double test_time, string filename);
-void outputas(deque<studentas> &A, int stud_skaicius, double test_time, string filename);
-void outputas(list<studentas> &A, int stud_skaicius, double test_time, string filename);
-string raide_choice(string prompt1);
-string getWordInput(string prompt1, string prompt2);
+void vidurkis(studentas& S);
+void mediana(studentas& S);
+void rusiavimas(vector<studentas>& A, int sort_choice);
+void rusiavimas(deque<studentas>& A, int sort_choice);
+void rusiavimas(list<studentas>& A, int sort_choice);
+void outputas(vector<studentas>& A, int stud_skaicius, double test_time, string filename);
+void outputas(deque<studentas>& A, int stud_skaicius, double test_time, string filename);
+void outputas(list<studentas>& A, int stud_skaicius, double test_time, string filename);
+string raide_choice(const string& prompt1);
+string getWordInput(const string& prompt1, const string& prompt2);
 void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_skaicius);
 void print(std::ostream& os, int pasirinkimas, deque<studentas>& A, int stud_skaicius);
 void print(std::ostream& os, int pasirinkimas, list<studentas>& A, int stud_skaicius);
-void failu_generavimas(string filename);
+void failu_generavimas(const string& filename);
 
 
 template <typename T>
-bool compare(T &a,T &b) {
+bool compare(const T& a, const T& b) {
     return a < b;
 }
 
 template <typename T, int Arg1 = INT_MIN, int Arg2 = INT_MAX>
-T getInput(string prompt1, string prompt2) {
+T getInput(const string& prompt1, const string& prompt2) {
     T input;
     while(true) {
         try {
@@ -61,7 +62,6 @@ T getInput(string prompt1, string prompt2) {
         catch(std::exception& e) {
             clearInput();
             cout << e.what() << endl;
-            continue;
         }
     }
 }
