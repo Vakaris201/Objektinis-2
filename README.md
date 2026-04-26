@@ -1,162 +1,111 @@
-PALEIDIMO INSTRUKCIJA
-1) Atidarykite terminala projekto kataloge.
-2) Sugeneruokite build failus i build aplanka:
-```
-cmake -S . -B build
-```
-3) Sukompiliuokite programa:
-```
-cmake --build build
-```
-4) Ieikite i build aplanka:
-```
-cd build
-```
-5) Paleiskite norima programa:
-```
-./vector.exe
-```
-arba
-```
-./list.exe
-```
-arba
-```
-./deque.exe
-```
-5) Jei gaunate klaida, istrinkite build aplanka ir paleiskite 2-3 zingsnius is naujo.
-<br>
+STRUCT
 
-TESTAVIMO PARAMETRAI: 
+-O1
+```
+.exe failo dydis: 439 KB
+100000.txt                   Failo skaitymo laikas:  0.0977002   0.102834  0.0969908
+100000.txt                        Rusiavimo laikas:  0.0800068   0.080105    0.07954
+100000.txt  Vargsiuku ir kietiaku atskyrimo laikas:  0.0096947  0.0097149  0.0091184
+100000.txt       Vargsiuku isvedimo i faila laikas:   0.211309   0.216618     0.1996
+100000.txt        Kietiaku isvedimo i faila laikas:   0.134843   0.145463    0.13517
+100000.txt                            Testu laikas:   0.533553   0.554736   0.520419
 
-CPU: AMD Ryzen AI 5340 w/Radeon 840M
-
-RAM: 16 GB
-
-SSD: SK Hynix_HFS512GEM4X182N 
-
-KONTEINERIŲ TYRIMAS
-
-Vector konteineris:
-```
-1000:
-1 strategija| Atskyrimo laikas: 0.0001372,  0.0001375,  0.0001251  Vidurkis:  0.0001333
-2 strategija| Atskyrimo laikas: 0.0001196,  0.0001263,  0.0001322  Vidurkis:   0.000126
-3 strategija| Atskyrimo laikas: 0.0000886,  0.0000791,  0.0000602  Vidurkis:  0.0000759
-```
-```
-10000:
-1 strategija| Atskyrimo laikas: 0.0012237,  0.0009626,  0.0009972  Vidurkis:  0.0010611
-2 strategija| Atskyrimo laikas: 0.0009038,  0.0009249,    0.00093  Vidurkis:  0.0009195
-3 strategija| Atskyrimo laikas: 0.0003474,   0.000335,  0.0005716  Vidurkis:   0.000418
-```
-```
-100000:
-1 strategija| Atskyrimo laikas: 0.0119887,  0.0110641,  0.0115848  Vidurkis:  0.0115458
-2 strategija| Atskyrimo laikas: 0.0099553,  0.0123872,  0.0125256  Vidurkis:  0.0116227
-3 strategija| Atskyrimo laikas: 0.0045916,  0.0042005,  0.0042507  Vidurkis:  0.0043476
-```
-```
-1000000:
-1 strategija| Atskyrimo laikas:  0.148257,   0.153131,   0.147417  Vidurkis:  0.1496016
-2 strategija| Atskyrimo laikas: 0.0877348,  0.0853595,  0.0877479  Vidurkis:  0.0869474
-3 strategija| Atskyrimo laikas: 0.0306239,  0.0303708,  0.0299182  Vidurkis:  0.0303043
+1000000.txt                  Failo skaitymo laikas:   0.965502   0.979536   0.965621
+1000000.txt                       Rusiavimo laikas:   0.983015     1.0279   0.983233
+1000000.txt Vargsiuku ir kietiaku atskyrimo laikas:  0.0891091  0.0899008  0.0881833
+1000000.txt      Vargsiuku isvedimo i faila laikas:    1.98216    1.87615    1.92683
+1000000.txt       Kietiaku isvedimo i faila laikas:     1.7292    1.36401    1.36422
+1000000.txt                           Testu laikas:    5.74899     5.3375    5.32809
 ```
 
-![V1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/V1.png)
-![V2](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/V2.png)
-![V3](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/V3.png)
+-O2
+```
+.exe failo dydis: 439 KB
+100000.txt                   Failo skaitymo laikas:  0.0996827   0.101036  0.0999396
+100000.txt                        Rusiavimo laikas:  0.0817066  0.0793308  0.0863108
+100000.txt  Vargsiuku ir kietiaku atskyrimo laikas:  0.0092831  0.0093655  0.0090807
+100000.txt       Vargsiuku isvedimo i faila laikas:   0.209055   0.217433   0.212472
+100000.txt        Kietiaku isvedimo i faila laikas:   0.139663   0.138843   0.139166
+100000.txt                            Testu laikas:    0.53939   0.546008   0.546969
 
+1000000.txt                  Failo skaitymo laikas:   0.958776   0.962161   0.956818
+1000000.txt                       Rusiavimo laikas:    0.98063   0.984374   0.984956
+1000000.txt Vargsiuku ir kietiaku atskyrimo laikas:  0.0882423  0.0891433  0.0890127
+1000000.txt      Vargsiuku isvedimo i faila laikas:     2.0333     2.3392    1.88548
+1000000.txt       Kietiaku isvedimo i faila laikas:    1.75992    1.39671    1.36867
+1000000.txt                           Testu laikas:    5.82087    5.77159    5.28493
 ```
-10000000:
-1 strategija| Atskyrimo laikas:   1.57156,    1.55005,    1.56051  Vidurkis:   1.560706
-2 strategija| Atskyrimo laikas:  0.805137,   0.875178,   0.820083  Vidurkis:   0.833466
-3 strategija| Atskyrimo laikas:   0.27601,   0.278601,   0.261707  Vidurkis:   0.272106
-```
-![V1.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/V1.1.png)
-![V2.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/V2.1.png)
-![V3.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/V3.1.png)
 
-List konteineris:
+-O3
 ```
-1000:
-1 strategija| Atskyrimo laikas: 0.0002094,  0.0002145,  0.0002903  Vidurkis:  0.0002381
-2 strategija| Atskyrimo laikas: 0.0002078,  0.0001772,  0.0001645  Vidurkis:  0.0001831
-3 strategija| Atskyrimo laikas: 0.0001433,   0.000134,  0.0001389  Vidurkis:  0.0001387
-```
-```
-10000:
-1 strategija| Atskyrimo laikas: 0.0014286,  0.0015187,  0.0014303  Vidurkis:  0.0014592
-2 strategija| Atskyrimo laikas: 0.0011375,  0.0011407,  0.0011289  Vidurkis:  0.0011357
-3 strategija| Atskyrimo laikas: 0.0006402,  0.0007101,  0.0006785  Vidurkis:  0.0006762
-```
-```
-100000:
-1 strategija| Atskyrimo laikas: 0.0191908,  0.0193874,  0.0187849  Vidurkis:   0.019121
-2 strategija| Atskyrimo laikas: 0.0115679,  0.0129729,  0.0130196  Vidurkis:  0.0125201
-3 strategija| Atskyrimo laikas: 0.0113211,  0.0131957,  0.0130065  Vidurkis:  0.0125077
-```
-```
-1000000:
-1 strategija| Atskyrimo laikas:  0.213701,   0.207242,   0.212711  Vidurkis:   0.211218
-2 strategija| Atskyrimo laikas:  0.188649,   0.191516,   0.195902  Vidurkis:  0.1920223
-3 strategija| Atskyrimo laikas:  0.364145,   0.371598,   0.363272  Vidurkis:  0.3663383
-```
-![L1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/L1.png)
-![L2](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/L2.png)
-![L3](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/L3.png)
+.exe failo dydis: 439 KB
+100000.txt                   Failo skaitymo laikas:  0.0698811  0.0703997  0.0690951
+100000.txt                        Rusiavimo laikas:  0.0116276  0.0104242  0.0103644
+100000.txt  Vargsiuku ir kietiaku atskyrimo laikas:  0.0026014  0.0027276  0.0024366
+100000.txt       Vargsiuku isvedimo i faila laikas:   0.201374   0.195377   0.202608
+100000.txt        Kietiaku isvedimo i faila laikas:   0.141758   0.133699   0.142808
+100000.txt                            Testu laikas:   0.427241   0.412628   0.427312
 
+1000000.txt                  Failo skaitymo laikas:   0.663662   0.664557    0.66669
+1000000.txt                       Rusiavimo laikas:   0.128223   0.128508    0.12668
+1000000.txt Vargsiuku ir kietiaku atskyrimo laikas:  0.0286741  0.0288408  0.0286866
+1000000.txt      Vargsiuku isvedimo i faila laikas:     1.9618    1.86962    1.91602
+1000000.txt       Kietiaku isvedimo i faila laikas:    1.34669    1.35719    1.36946
+1000000.txt                           Testu laikas:    4.12905    4.04872    4.10754
 ```
-10000000:
-1 strategija| Atskyrimo laikas:   2.20826,    2.13911,    2.21721  Vidurkis:   2.188193
-2 strategija| Atskyrimo laikas:   2.26362,    2.26219,    2.25458  Vidurkis:    2.26013
-3 strategija| Atskyrimo laikas:   3.76198,    3.78391,    3.77868  Vidurkis:  3.7748566
-```
-![L1.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/L1.1.png)
-![L2.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/L2.1.png)
-![L3.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/L3.1.png)
 
-Deque konteineris:
-```
-1000:
-1 strategija| Atskyrimo laikas: 0.0002724,  0.0002631,  0.0002183  Vidurkis:  0.0002512
-2 strategija| Atskyrimo laikas: 0.0001522,  0.0001068,  0.0001201  Vidurkis:  0.0001263
-3 strategija| Atskyrimo laikas: 0.0000913,  0.0000841,  0.0000906  Vidurkis:  0.0000886
-```
-```
-10000:
-1 strategija| Atskyrimo laikas: 0.0017039,  0.0017368,  0.0017407  Vidurkis:  0.0017271
-2 strategija| Atskyrimo laikas: 0.0009041,  0.0009066,  0.0010827  Vidurkis:  0.0009464
-3 strategija| Atskyrimo laikas: 0.0005826,  0.0005059,  0.0004646  Vidurkis:  0.0005177
-```
-```
-100000:
-1 strategija| Atskyrimo laikas: 0.0188441,  0.0168037,  0.0160086  Vidurkis:  0.0172188
-2 strategija| Atskyrimo laikas: 0.0090145,  0.0090103,   0.009156  Vidurkis:  0.0090602
-3 strategija| Atskyrimo laikas: 0.0063581,  0.0053733,  0.0056863  Vidurkis:  0.0058059
-```
-```
-1000000: 
-1 strategija| Atskyrimo laikas:   0.16816,   0.168763,   0.169429  Vidurkis:   0.168784 
-2 strategija| Atskyrimo laikas: 0.0987044,    0.10094,  0.0978724  Vidurkis:  0.0991722
-3 strategija| Atskyrimo laikas:  0.056636,  0.0561603,  0.0575465  Vidurkis:  0.0567809
-```
-![D1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D1.png)
-![D2](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D2.png)
-![D3](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D3.png)
+CLASS
 
+-O1
 ```
-10000000:
-1 strategija| Atskyrimo laikas:   1.79851,    1.78005,    1.75635  Vidurkis:  1.7783033
-2 strategija| Atskyrimo laikas:   1.17568,    1.30447,    1.03811  Vidurkis:  1.1727533
-3 strategija| Atskyrimo laikas:  0.582763,   0.580105,   0.580581  Vidurkis:  0.5811496
-```
-![D1.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D1.1.png)
-![D2.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D2.1.png)
-![D3.1](https://github.com/Vakaris201/Objektinis/blob/v1.0/nuotraukos/D3.1.png)
+.exe failo dydis: 312 KB
+100000.txt                   Failo skaitymo laikas:  0.0643496  0.0653601  0.0629556
+100000.txt                        Rusiavimo laikas:  0.0378263  0.0372602  0.0355135
+100000.txt  Vargsiuku ir kietiaku atskyrimo laikas:   0.009418  0.0068639  0.0066995
+100000.txt       Vargsiuku isvedimo i faila laikas:  0.0999618   0.210681       0.21
+100000.txt        Kietiaku isvedimo i faila laikas:   0.263879   0.133738    0.13932
+100000.txt                            Testu laikas:   0.475435   0.453903   0.454489
 
-TYRIMO ISVADOS:
-1) Is 3 konteineriu greiciausiai veikia vector.
-2) 3 strategija yra greiciausia, isskyrus konteineriui list.
-3) Konteineriui list geriausia rinktis 1 arba 2 strategija.
-4) Konteineris deque geras tarpinis variantas - greitesnis uz list, bet letesnis uz vector.
+1000000.txt                  Failo skaitymo laikas:   0.607914   0.597712   0.612436
+1000000.txt                       Rusiavimo laikas:   0.461562   0.461921   0.458362
+1000000.txt Vargsiuku ir kietiaku atskyrimo laikas:  0.0864698  0.0846114  0.0833702
+1000000.txt      Vargsiuku isvedimo i faila laikas:    1.92887    2.14409    2.19312
+1000000.txt       Kietiaku isvedimo i faila laikas:    1.34767    1.34114    1.37314
+1000000.txt                           Testu laikas:    4.43249    4.62947    4.72042
+```
+
+-O2
+```
+.exe failo dydis: 295 KB
+100000.txt                   Failo skaitymo laikas:  0.0635245  0.0637447  0.0633628
+100000.txt                        Rusiavimo laikas:  0.0358494  0.0359667  0.0352736
+100000.txt  Vargsiuku ir kietiaku atskyrimo laikas:  0.0066932  0.0074704   0.007314
+100000.txt       Vargsiuku isvedimo i faila laikas:   0.199425   0.203961    0.20238 
+100000.txt           tiaku isvedimo i faila laikas:   0.138289   0.142561   0.136074
+100000.txt                            Testu laikas:   0.443781   0.453704   0.444404
+  
+1000000.txt                  Failo skaitymo laikas:    0.59856   0.607862   0.602819
+1000000.txt                       Rusiavimo laikas:   0.459275   0.464764   0.464813
+1000000.txt Vargsiuku ir kietiaku atskyrimo laikas:  0.0842376  0.0845138  0.0847913
+1000000.txt      Vargsiuku isvedimo i faila laikas:    1.99558    1.95784    1.87067
+1000000.txt       Kietiaku isvedimo i faila laikas:    1.63281    1.33729    1.34035
+1000000.txt                           Testu laikas:    4.77047    4.45226    4.36344
+```
+
+-O3
+```
+.exe failo dydis: 327 KB
+100000.txt                   Failo skaitymo laikas:  0.0619359  0.0618686  0.0630237  
+100000.txt                        Rusiavimo laikas:  0.0329093  0.0323716  0.0328784 
+100000.txt  Vargsiuku ir kietiaku atskyrimo laikas:  0.0073039  0.0073043  0.0069835  
+100000.txt       Vargsiuku isvedimo i faila laikas:   0.186328   0.193786    0.20156  
+100000.txt        Kietiaku isvedimo i faila laikas:   0.139606   0.142198   0.138702  
+100000.txt                            Testu laikas:   0.428083   0.437528   0.443147  
+
+1000000.txt                  Failo skaitymo laikas:   0.590642   0.591432   0.591548  
+1000000.txt                       Rusiavimo laikas:   0.429809   0.434822   0.433959  
+1000000.txt Vargsiuku ir kietiaku atskyrimo laikas:  0.0819543  0.0814615  0.0808689  
+1000000.txt      Vargsiuku isvedimo i faila laikas:    2.02118    1.99418    1.87249  
+1000000.txt       Kietiaku isvedimo i faila laikas:    1.68183    1.33026     1.3326  
+1000000.txt                           Testu laikas:    4.80541    4.43215    4.31146  
+```
