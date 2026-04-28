@@ -66,7 +66,7 @@ int main() {
             ss.clear();
             ss.str(line);
             Studentas S;
-            S.readStudent(ss);
+            ss >> S;
             A.push_back(move(S));
             stud_skaicius++;
         }
@@ -159,7 +159,7 @@ int main() {
             }
             ss << " " << egz_temp;
             Studentas S;
-            S.readStudent(ss);
+            ss >> S;
             A.push_back(move(S));
             string student_choice;
             while(true) {

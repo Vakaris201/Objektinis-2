@@ -1,11 +1,12 @@
 #include "Studentas.h"
+#include <sstream>
 
 Studentas::Studentas() {
     vardas_ = "Test";
     pavarde_ = "Test";
     paz_ = { 0 };
     egzam_ = 0;
-    galBalas();
+    skaiciuotiRez();
 }
 
 Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egzam) {
@@ -13,7 +14,7 @@ Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egza
     pavarde_ = pavarde;
     paz_ = paz;
     egzam_ = egzam;
-    galBalas();
+    skaiciuotiRez();
 }
 
 Studentas::Studentas(istream& is) {
@@ -63,23 +64,37 @@ istream& Studentas::readStudent(istream& is) {
     paz_.clear();
     egzam_ = 0.0;
     rez_ = 0.0;
-    if (!(is >> vardas_ >> pavarde_))
+    string line;
+    if (!getline(is >> std::ws, line))
         return is;
+    std::stringstream ss(line);
+    if (!(ss >> vardas_ >> pavarde_))
+        return is;
+
     int val;
-    while (is >> val)
+    while (ss >> val) {
         paz_.push_back(val);
+    }
 
     if (!paz_.empty()) {
         egzam_ = paz_.back();
         paz_.pop_back();
     }
-    is.clear();
     return is;
+}
+
+istream& operator>>(istream& is, Studentas& student) {
+    return student.readStudent(is);
+}
+
+ostream& operator<<(ostream& os, const Studentas& student) {
+    os << left << setw(15) << student.vardas() << left << setw(20) << student.pavarde();
+    os << setw(10) << fixed << setprecision(2) << student.rez();
+    return os;
 }
 
 Studentas::~Studentas() {  // destructor
     paz_.clear();
-    std::cout << "Clear" << std::endl;
 }
 
 Studentas::Studentas(const Studentas& other) { // copy constructor
@@ -155,8 +170,7 @@ void print(ostream& os, int pasirinkimas, const vector<Studentas>& A, int stud_s
     (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl : os << setw(10) << "Galutinis (Med.)" << endl;
 
     for (int i = 0; i < stud_skaicius; i++) {
-        os << left << setw(15) << A[i].vardas() << left << setw(20) << A[i].pavarde();
-        os << setw(10) << fixed << setprecision(2) << A[i].rez() << endl;
+        os << A[i] << endl;
     }
 }
 

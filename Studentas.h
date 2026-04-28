@@ -24,6 +24,7 @@ using std::setprecision;
 double mediana(vector<int>& paz);
 double vidurkis(vector<int>& paz);
 
+
 class Studentas {
 private:
     string vardas_;
@@ -55,6 +56,9 @@ public:
     
     string test_eilute();
 };
+
+istream& operator>>(istream& is, Studentas& student);
+ostream& operator<<(ostream& os, const Studentas& student);
 
 bool compare(const Studentas& a, const Studentas& b);
 bool comparePagalPavarde(const Studentas& a, const Studentas& b); 
