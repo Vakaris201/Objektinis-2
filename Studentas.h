@@ -45,7 +45,12 @@ public:
     void skaiciuotiRez(double (*)(vector<int>&) = mediana);
     istream& readStudent(istream& is);
     
-    ~Studentas() = default;
+    ~Studentas();                                      // destructor
+    Studentas(const Studentas& other);                 // copy constructor
+    Studentas(Studentas&& other) noexcept;             // move constructor
+    Studentas& operator=(const Studentas& other);      // copy assignment
+    Studentas& operator=(Studentas&& other) noexcept;  // move assignment
+
 };
 
 bool compare(const Studentas& a, const Studentas& b);
