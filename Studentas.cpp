@@ -1,5 +1,21 @@
 #include "Studentas.h"
 
+Studentas::Studentas() {
+    vardas_ = "Test";
+    pavarde_ = "Test";
+    paz_ = { 0 };
+    egzam_ = 0;
+    galBalas();
+}
+
+Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egzam) {
+    vardas_ = vardas;
+    pavarde_ = pavarde;
+    paz_ = paz;
+    egzam_ = egzam;
+    galBalas();
+}
+
 Studentas::Studentas(istream& is) {
     readStudent(is);
 }
@@ -61,15 +77,32 @@ istream& Studentas::readStudent(istream& is) {
     return is;
 }
 
-Studentas::~Studentas() {}
+Studentas::~Studentas() {  // destructor
+    paz_.clear();
+    std::cout << "Clear" << std::endl;
+}
 
-Studentas::Studentas(const Studentas& other) 
-    : vardas_(other.vardas_), pavarde_(other.pavarde_), paz_(other.paz_), egzam_(other.egzam_), rez_(other.rez_) {}
+Studentas::Studentas(const Studentas& other) { // copy constructor
+    vardas_ = other.vardas_;
+    pavarde_ = other.pavarde_;
+    paz_ = other.paz_;
+    egzam_ = other.egzam_;
+    rez_ = other.rez_;
+}
 
-Studentas::Studentas(Studentas&& other) noexcept
-    : vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)), paz_(move(other.paz_)), egzam_(other.egzam_), rez_(other.rez_) {}
-
-Studentas& Studentas::operator=(const Studentas& other) {
+Studentas::Studentas(Studentas&& other) noexcept {  // move constructor
+    vardas_ = other.vardas_;
+    pavarde_ = other.pavarde_;
+    paz_ = other.paz_;
+    egzam_ = other.egzam_;
+    rez_ = other.rez_;
+    other.vardas_.clear();
+    other.pavarde_.clear();
+    other.paz_.clear();
+    other.egzam_ = 0.0;
+    other.rez_ = 0.0;
+}
+Studentas& Studentas::operator=(const Studentas& other) { // copy assignment
     if(this == &other) return *this;
     vardas_ = other.vardas_;
     pavarde_ = other.pavarde_;
@@ -79,13 +112,17 @@ Studentas& Studentas::operator=(const Studentas& other) {
     return *this;
 }
 
-Studentas& Studentas::operator=(Studentas&& other) noexcept {
-    if(this == &other) return *this;
-    vardas_ = move(other.vardas_);
-    pavarde_ = move(other.pavarde_);
-    paz_ = move(other.paz_);
+Studentas& Studentas::operator=(Studentas&& other) noexcept { //  move assignment
+    vardas_ = other.vardas_;
+    pavarde_ = other.pavarde_;
+    paz_ = other.paz_;
     egzam_ = other.egzam_;
     rez_ = other.rez_;
+    other.vardas_.clear();
+    other.pavarde_.clear();
+    other.paz_.clear();
+    other.egzam_ = 0.0;
+    other.rez_ = 0.0;
     return *this;
 }
 
@@ -121,4 +158,10 @@ void print(ostream& os, int pasirinkimas, const vector<Studentas>& A, int stud_s
         os << left << setw(15) << A[i].vardas() << left << setw(20) << A[i].pavarde();
         os << setw(10) << fixed << setprecision(2) << A[i].rez() << endl;
     }
+}
+
+string Studentas::test_eilute() {
+    string eil;
+    eil += vardas_ + " " + pavarde_;
+    return eil;
 }

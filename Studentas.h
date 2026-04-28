@@ -33,14 +33,16 @@ private:
     double rez_;
 
 public:
-    Studentas() : egzam_(0.0), rez_(0.0) {}
+    Studentas();  // default constructor
+    Studentas(string vardas, string pavarde, vector<int> paz, double egzam);  // parameterized constructor
     Studentas(istream& is);
-    
-    inline string vardas() const { return vardas_; }
-    inline string pavarde() const { return pavarde_; }
-    inline double egzam() const { return egzam_; }
-    inline double rez() const { return rez_; }
-    inline const vector<int>& paz() const { return paz_; }
+
+    string vardas() const { return vardas_; }
+    string pavarde() const { return pavarde_; }
+    double egzam() const { return egzam_; }
+    double rez() const { return rez_; }
+    const vector<int>& paz() const { return paz_; }
+
     double galBalas(double (*)(vector<int>&) = mediana);
     void skaiciuotiRez(double (*)(vector<int>&) = mediana);
     istream& readStudent(istream& is);
@@ -50,7 +52,8 @@ public:
     Studentas(Studentas&& other) noexcept;             // move constructor
     Studentas& operator=(const Studentas& other);      // copy assignment
     Studentas& operator=(Studentas&& other) noexcept;  // move assignment
-
+    
+    string test_eilute();
 };
 
 bool compare(const Studentas& a, const Studentas& b);
