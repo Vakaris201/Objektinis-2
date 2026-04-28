@@ -69,6 +69,26 @@ Studentas::Studentas(const Studentas& other)
 Studentas::Studentas(Studentas&& other) noexcept
     : vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)), paz_(move(other.paz_)), egzam_(other.egzam_), rez_(other.rez_) {}
 
+Studentas& Studentas::operator=(const Studentas& other) {
+    if(this == &other) return *this;
+    vardas_ = other.vardas_;
+    pavarde_ = other.pavarde_;
+    paz_ = other.paz_;
+    egzam_ = other.egzam_;
+    rez_ = other.rez_;
+    return *this;
+}
+
+Studentas& Studentas::operator=(Studentas&& other) noexcept {
+    if(this == &other) return *this;
+    vardas_ = move(other.vardas_);
+    pavarde_ = move(other.pavarde_);
+    paz_ = move(other.paz_);
+    egzam_ = other.egzam_;
+    rez_ = other.rez_;
+    return *this;
+}
+
 bool compare(const Studentas& a, const Studentas& b) {
     return a.vardas() < b.vardas();
 }
