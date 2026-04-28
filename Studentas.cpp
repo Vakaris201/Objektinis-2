@@ -61,6 +61,14 @@ istream& Studentas::readStudent(istream& is) {
     return is;
 }
 
+Studentas::~Studentas() {}
+
+Studentas::Studentas(const Studentas& other) 
+    : vardas_(other.vardas_), pavarde_(other.pavarde_), paz_(other.paz_), egzam_(other.egzam_), rez_(other.rez_) {}
+
+Studentas::Studentas(Studentas&& other) noexcept
+    : vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)), paz_(move(other.paz_)), egzam_(other.egzam_), rez_(other.rez_) {}
+
 bool compare(const Studentas& a, const Studentas& b) {
     return a.vardas() < b.vardas();
 }
