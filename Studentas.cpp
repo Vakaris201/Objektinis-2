@@ -1,23 +1,19 @@
 #include "Studentas.h"
 #include <sstream>
 
-Studentas::Studentas() {
-    vardas_ = "Test";
-    pavarde_ = "Test";
+Studentas::Studentas() : Zmogus("Test", "Test") {
     paz_ = { 0 };
     egzam_ = 0;
     skaiciuotiRez();
 }
 
-Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egzam) {
-    vardas_ = vardas;
-    pavarde_ = pavarde;
+Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egzam) : Zmogus(vardas, pavarde) {
     paz_ = paz;
     egzam_ = egzam;
     skaiciuotiRez();
 }
 
-Studentas::Studentas(istream& is) {
+Studentas::Studentas(istream& is) : Zmogus() {
     readStudent(is);
 }
 
@@ -47,12 +43,31 @@ double vidurkis(std::vector<int>& paz) {
     return sum / paz.size();
 }
 
-double Studentas::galBalas(double (*strategija)(vector<int>&)) {
+double Studentas::galBalas() const {
+    if (paz_.empty()){
+        return egzam_ * 0.6;
+    }
+    else {    
+        vector<int> kopija;
+        kopija.reserve(paz_.size());
+        for (int pazymys : paz_) {
+            kopija.push_back(pazymys);
+        }
+        return mediana(kopija) * 0.4 + egzam_ * 0.6;
+    }
+}
+
+double Studentas::galBalas(double (*strategija)(vector<int>&)) const{
     if (paz_.empty()) {
         return egzam_ * 0.6;
     }
     else {
-        return strategija(paz_) * 0.4 + egzam_ * 0.6;
+        vector<int> kopija;
+        kopija.reserve(paz_.size());
+        for (int pazymys : paz_) {
+            kopija.push_back(pazymys);
+        }
+        return strategija(kopija) * 0.4 + egzam_ * 0.6;
     }
 }
 
@@ -65,17 +80,15 @@ istream& Studentas::readStudent(istream& is) {
     egzam_ = 0.0;
     rez_ = 0.0;
     string line;
-    if (!getline(is >> std::ws, line))
+    if (!getline(is >> ws, line))
         return is;
-    std::stringstream ss(line);
+    stringstream ss(line);
     if (!(ss >> vardas_ >> pavarde_))
         return is;
-
     int val;
     while (ss >> val) {
         paz_.push_back(val);
     }
-
     if (!paz_.empty()) {
         egzam_ = paz_.back();
         paz_.pop_back();
@@ -83,44 +96,24 @@ istream& Studentas::readStudent(istream& is) {
     return is;
 }
 
-istream& operator>>(istream& is, Studentas& student) {
-    return student.readStudent(is);
-}
+Studentas::~Studentas() {}  // destructor
 
-ostream& operator<<(ostream& os, const Studentas& student) {
-    os << left << setw(15) << student.vardas() << left << setw(20) << student.pavarde();
-    os << setw(10) << fixed << setprecision(2) << student.rez();
-    return os;
-}
-
-Studentas::~Studentas() {  // destructor
-    paz_.clear();
-}
-
-Studentas::Studentas(const Studentas& other) { // copy constructor
-    vardas_ = other.vardas_;
-    pavarde_ = other.pavarde_;
+Studentas::Studentas(const Studentas& other) : Zmogus(other) { // copy constructor
     paz_ = other.paz_;
     egzam_ = other.egzam_;
     rez_ = other.rez_;
 }
 
-Studentas::Studentas(Studentas&& other) noexcept {  // move constructor
-    vardas_ = other.vardas_;
-    pavarde_ = other.pavarde_;
-    paz_ = other.paz_;
+Studentas::Studentas(Studentas&& other) noexcept : Zmogus(move(other)) {  // move constructor
+    paz_ = move(other.paz_);
     egzam_ = other.egzam_;
     rez_ = other.rez_;
-    other.vardas_.clear();
-    other.pavarde_.clear();
-    other.paz_.clear();
     other.egzam_ = 0.0;
     other.rez_ = 0.0;
 }
 Studentas& Studentas::operator=(const Studentas& other) { // copy assignment
     if(this == &other) return *this;
-    vardas_ = other.vardas_;
-    pavarde_ = other.pavarde_;
+    Zmogus::operator=(other);
     paz_ = other.paz_;
     egzam_ = other.egzam_;
     rez_ = other.rez_;
@@ -128,17 +121,19 @@ Studentas& Studentas::operator=(const Studentas& other) { // copy assignment
 }
 
 Studentas& Studentas::operator=(Studentas&& other) noexcept { //  move assignment
-    vardas_ = other.vardas_;
-    pavarde_ = other.pavarde_;
-    paz_ = other.paz_;
+    if (this == &other) return *this;
+    Zmogus::operator=(move(other));
+    paz_ = move(other.paz_);
     egzam_ = other.egzam_;
     rez_ = other.rez_;
-    other.vardas_.clear();
-    other.pavarde_.clear();
-    other.paz_.clear();
     other.egzam_ = 0.0;
     other.rez_ = 0.0;
     return *this;
+}
+
+void Studentas::print(ostream& os) const {
+    os << left << setw(15) << vardas() << left << setw(20) << pavarde();
+    os << setw(10) << fixed << setprecision(2) << rez();
 }
 
 bool compare(const Studentas& a, const Studentas& b) {
@@ -179,3 +174,4 @@ string Studentas::test_eilute() {
     eil += vardas_ + " " + pavarde_;
     return eil;
 }
+

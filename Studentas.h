@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <numeric>
 #include <iomanip>
-#include "Zmogus.h"
+#include "Person.h"
 
 using std::string;
 using std::vector;
@@ -44,9 +44,8 @@ public:
     const vector<int>& paz() const { return paz_; }
 
     double galBalas() const override;
-    istream& readStudent(istream& is) override;
     void print(ostream& os) const override;
-
+    
     double galBalas(double (*)(vector<int>&) = mediana) const;
     void skaiciuotiRez(double (*)(vector<int>&) = mediana);
     
@@ -55,6 +54,7 @@ public:
     Studentas(Studentas&& other) noexcept;             // move constructor
     Studentas& operator=(const Studentas& other);      // copy assignment
     Studentas& operator=(Studentas&& other) noexcept;  // move assignment
+    istream& readStudent(istream& is) override;
     
     string test_eilute();
 };
