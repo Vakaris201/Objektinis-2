@@ -161,9 +161,9 @@
          8. Get'eriai
          9. Įvesties/išvesties operatoriai
      ```
-![test2](https://github.com/Vakaris201/Objektinis-2/blob/v1.2/nuotraukos/test2.png)
+![test2](https://github.com/Vakaris201/Objektinis-2/blob/v1.5/nuotraukos/test2.png)
 
-![test](https://github.com/Vakaris201/Objektinis-2/blob/v1.2/nuotraukos/test.png)
+![test](https://github.com/Vakaris201/Objektinis-2/blob/v1.5/nuotraukos/test.png)
 
 
 
