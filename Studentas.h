@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <numeric>
 #include <iomanip>
+#include "Zmogus.h"
 
 using std::string;
 using std::vector;
@@ -20,15 +21,15 @@ using std::left;
 using std::setw;
 using std::fixed;
 using std::setprecision;
+using std::stringstream;
+using std::ws;
 
 double mediana(vector<int>& paz);
 double vidurkis(vector<int>& paz);
 
 
-class Studentas {
+class Studentas : public Zmogus {
 private:
-    string vardas_;
-    string pavarde_;
     vector<int> paz_;
     double egzam_;
     double rez_;
@@ -38,17 +39,18 @@ public:
     Studentas(string vardas, string pavarde, vector<int> paz, double egzam);  // parameterized constructor
     Studentas(istream& is);
 
-    string vardas() const { return vardas_; }
-    string pavarde() const { return pavarde_; }
     double egzam() const { return egzam_; }
     double rez() const { return rez_; }
     const vector<int>& paz() const { return paz_; }
 
-    double galBalas(double (*)(vector<int>&) = mediana);
+    double galBalas() const override;
+    istream& readStudent(istream& is) override;
+    void print(ostream& os) const override;
+
+    double galBalas(double (*)(vector<int>&) = mediana) const;
     void skaiciuotiRez(double (*)(vector<int>&) = mediana);
-    istream& readStudent(istream& is);
     
-    ~Studentas();                                      // destructor
+    ~Studentas() override;                             // destructor
     Studentas(const Studentas& other);                 // copy constructor
     Studentas(Studentas&& other) noexcept;             // move constructor
     Studentas& operator=(const Studentas& other);      // copy assignment
@@ -56,9 +58,6 @@ public:
     
     string test_eilute();
 };
-
-istream& operator>>(istream& is, Studentas& student);
-ostream& operator<<(ostream& os, const Studentas& student);
 
 bool compare(const Studentas& a, const Studentas& b);
 bool comparePagalPavarde(const Studentas& a, const Studentas& b); 
