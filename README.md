@@ -1,92 +1,151 @@
 ĮGYVENDINTA:
 
-1. REALIZUOTI VISI "RULE OF FIVE" OPERATORIAI
-   
-   Destruktorius - atlaisvina vektoriaus atmintį
-   
-        ~Studentas();
-   
-   Copy konstruktorius - sukuria naują objektą kaip kito objekto kopiją:
-       
-        Studentas(const Studentas& other);
-   
-   Move konstruktorius - sukuria naują objektą „pasiimdamas“ duomenis iš kito objekto:
-       
-        Studentas(Studentas&& other) noexcept
-   
-   Copy assignment operatorius - priskiria vieno jau egzistuojančio objekto duomenis kitam:
+1. REALIZUOTA BAZINĖ KLASĖ Zmogus
 
-        Studentas& operator=(const Studentas& other); 
-   
-   Move assignment operatorius - perkelia vieno jau egzistuojančio objekto duomenis kitam:
-        
-        Studentas& operator=(Studentas&& other) noexcept;
-   
-2. REALIZUOTI ĮVESTIES/IŠVESTIES OPERATORIAI
+     Sukurta nauja bazinė klasė Zmogus - Person.h
 
-Įvesties operatorius:
+2. REALIZUOTI VISI "RULE OF FIVE" OPERATORIAI
+   
+     Destruktorius
+     ```
+          virtual ~Zmogus() {};
+     ```
+     Copy konstruktorius 
+     ```
+          Zmogus(const Zmogus& other) 
+          : vardas_(other.vardas_), pavarde_(other.pavarde_) {};
+     ```
+     Move konstruktorius
+     ```  
+          Zmogus(Zmogus&& other) noexcept
+          : vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)) {};
+     ```
+     Copy assignment operatorius 
+     ```
+          Zmogus& operator=(const Zmogus& other) {
+          if(this == &other) return *this;
+          vardas_ = other.vardas_;
+          pavarde_ = other.pavarde_;
+          return *this;
+     } 
+     ```
+     Move assignment operatorius
+     ```  
+          Zmogus& operator=(Zmogus&& other) noexcept {
+          if(this == &other) return *this;
+          vardas_ = move(other.vardas_);
+          pavarde_ = move(other.pavarde_);
+          return *this;
+     }
+     ```
+3. STUDENTO KLASĖS PAKITIMAI
+
+     Derived klasė
+     ```
+               class Studentas : public Zmogus 
+     ```
+     Private duomenys
+     ```
+          private:
+               vector<int> paz_;
+               double egzam_;
+               double rez_;
+     ```
+     Default konstruktorius
+     ```
+          Studentas::Studentas() : Zmogus("Test", "Test") {
+               paz_ = { 0 };
+               egzam_ = 0;
+               skaiciuotiRez();
+          }
+     ```
+     Parametrizuotas konstruktorius
+     ```
+          Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egzam) : Zmogus(vardas, pavarde) {
+               paz_ = paz;
+               egzam_ = egzam;
+               skaiciuotiRez();
+          }
+     ```
+     Skaitymas
+     ```
+          Studentas::Studentas(istream& is) : Zmogus() {
+               readStudent(is);
+          }
+     ```
+     Print funkcija Studentas klasėje 
+     ```
+          void print(ostream& os, int pasirinkimas, const vector<Studentas>& A, int stud_skaicius) {
+               os << left << setw(15) << "Vardas" << setw(20) << "Pavarde";
+               (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl : os << setw(10) << "Galutinis (Med.)" << endl;
+
+               for (int i = 0; i < stud_skaicius; i++) {
+                    os << A[i] << endl;
+               }
+          }  
+     ```
+     Destruktorius 
+     ``` 
+          Studentas::~Studentas() {}
+     ```
+    Copy konstruktorius   
+     ```
+          Studentas::Studentas(const Studentas& other) : Zmogus(other) {
+               paz_ = other.paz_;
+               egzam_ = other.egzam_;
+               rez_ = other.rez_;
+          }
+     ```
+     Move konstruktorius 
+     ```
+          Studentas::Studentas(Studentas&& other) noexcept : Zmogus(move(other)) {
+               paz_ = move(other.paz_);
+               egzam_ = other.egzam_;
+               rez_ = other.rez_;
+               other.egzam_ = 0.0;
+               other.rez_ = 0.0;
+          }
+     ```
+     Copy assignment operatorius 
+     ```
+          Studentas& Studentas::operator=(const Studentas& other) { // copy assignment
+               if(this == &other) return *this;
+               Zmogus::operator=(other);
+               paz_ = other.paz_;
+               egzam_ = other.egzam_;
+               rez_ = other.rez_;
+               return *this;
+          }
+     ```
+     Move assignment operatorius
+     ```
+          Studentas& Studentas::operator=(Studentas&& other) noexcept { //  move assignment
+               if (this == &other) return *this;
+               Zmogus::operator=(move(other));
+               paz_ = move(other.paz_);
+               egzam_ = other.egzam_;
+               rez_ = other.rez_;
+               other.egzam_ = 0.0;
+               other.rez_ = 0.0;
+               return *this;
+          }
+     ```
+4. ĮVESTIES/IŠVESTIES OPERATORIAI
+
+Įvesties operatorius: - nukeliamas į Person.h
 ```
-istream& operator>>(istream& is, Studentas& student) {
-    return student.readStudent(is);
-}
+     friend istream& operator>>(istream& is, Zmogus& z) {
+          return z.readStudent(is);
+     }
 ```
 Išvesties operatorius:
 ```
-ostream& operator<<(ostream& os, const Studentas& student) {
-    os << left << setw(15) << student.vardas() << left << setw(20) << student.pavarde();
-    os << setw(10) << fixed << setprecision(2) << student.rez();
-    return os;
-}
+     friend ostream& operator<<(ostream& os, const Zmogus& z) {
+          z.print(os); 
+          return os;
+     }
 ```
-
-ĮVESTIES BŪDAI:
-
-Rankinis įvedimas - Vartotojas rankiniu būdu įveda kiekvieno studento vardą, pavardę, kiekvieną namų darbų pažymį ir egzamino pažymį.<br>
-```
-Iveskite varda: Vardenis
-Iveskite pavarde: Pavardenis
-Iveskite 1 semestro pazymi (0 - baigti): 8
-Iveskite 2 semestro pazymi (0 - baigti): 9
-Iveskite 3 semestro pazymi (0 - baigti): 0
-Iveskite egzamino pazymi: 10
-```
-Automatinis įvedimas - Programa automatiškai sugeneruoja vardą, pavardę (iš Zmones.h vardų sąrašo) ir visus pažymius.<br>
-```
-zmogus z = gen();
-vard  = z.vardas;
-pavard = z.pavarde;
-```
-Įvedimas iš failo - Kiekviena eilutė nuskaitoma iš failo ir perduodama per operator>>.<br>
-```
-A.reserve(10000000);
-stringstream ss;
-while(getline(fin, line)) {
-    ss.clear();
-    ss.str(line);
-    Studentas S;
-    ss >> S;
-    A.push_back(move(S));
-}
-```
-IŠVESTIES BŪDAI:
-
-Į ekraną:
-```
-print(cout, grade_choice, A, stud_skaicius);
-```
-Į failą:
-```
-ofstream fout("rezultatai.txt");
-print(fout, grade_choice, A, stud_skaicius);
-```
-Į 2 failus:
-```
-ofstream v_fout("vargsiukai.txt");
-ofstream k_fout("kietiakai.txt");
-print(v_fout, grade_choice, vargsiukai, vargsiukai.size());
-print(k_fout, grade_choice, A, A.size());
-```
-3. REALIZUOTAS IR IŠBANDYTAS TESTAVIMAS, VISI TESTAVIMO ATVEJAI SĖKMINGI
+5. VISI METODAI IŠTESTUOTI IR TESTAVIMO ATVEJAI SĖKMINGI
 
 TESTUOJAMI:
 ```
