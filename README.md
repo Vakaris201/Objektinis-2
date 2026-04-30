@@ -2,7 +2,7 @@
 
 1. REALIZUOTA BAZINĖ KLASĖ Zmogus
 
-     Sukurta nauja bazinė klasė Zmogus - Person.h
+     Sukurta nauja bazinė klasė Zmogus - *Person.h*
 
 2. REALIZUOTI VISI "RULE OF FIVE" OPERATORIAI
    
@@ -27,7 +27,7 @@
           vardas_ = other.vardas_;
           pavarde_ = other.pavarde_;
           return *this;
-     } 
+          } 
      ```
      Move assignment operatorius
      ```  
@@ -42,7 +42,7 @@
 
      Derived klasė
      ```
-               class Studentas : public Zmogus 
+          class Studentas : public Zmogus 
      ```
      Private duomenys
      ```
@@ -61,7 +61,8 @@
      ```
      Parametrizuotas konstruktorius
      ```
-          Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egzam) : Zmogus(vardas, pavarde) {
+          Studentas::Studentas(string vardas, string pavarde, vector<int> paz, double egzam) 
+          : Zmogus(vardas, pavarde) {
                paz_ = paz;
                egzam_ = egzam;
                skaiciuotiRez();
@@ -77,7 +78,8 @@
      ```
           void print(ostream& os, int pasirinkimas, const vector<Studentas>& A, int stud_skaicius) {
                os << left << setw(15) << "Vardas" << setw(20) << "Pavarde";
-               (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl : os << setw(10) << "Galutinis (Med.)" << endl;
+               (pasirinkimas == 1)? os << setw(10) << "Galutinis (Vid.)" << endl 
+                                  : os << setw(10) << "Galutinis (Med.)" << endl;
 
                for (int i = 0; i < stud_skaicius; i++) {
                     os << A[i] << endl;
@@ -108,7 +110,7 @@
      ```
      Copy assignment operatorius 
      ```
-          Studentas& Studentas::operator=(const Studentas& other) { // copy assignment
+          Studentas& Studentas::operator=(const Studentas& other) { 
                if(this == &other) return *this;
                Zmogus::operator=(other);
                paz_ = other.paz_;
@@ -119,7 +121,7 @@
      ```
      Move assignment operatorius
      ```
-          Studentas& Studentas::operator=(Studentas&& other) noexcept { //  move assignment
+          Studentas& Studentas::operator=(Studentas&& other) noexcept {
                if (this == &other) return *this;
                Zmogus::operator=(move(other));
                paz_ = move(other.paz_);
@@ -132,34 +134,35 @@
      ```
 4. ĮVESTIES/IŠVESTIES OPERATORIAI
 
-Įvesties operatorius: - nukeliamas į Person.h
-```
-     friend istream& operator>>(istream& is, Zmogus& z) {
-          return z.readStudent(is);
-     }
-```
-Išvesties operatorius:
-```
-     friend ostream& operator<<(ostream& os, const Zmogus& z) {
-          z.print(os); 
-          return os;
-     }
-```
+     Įvesties operatorius: - nukeliamas į Person.h
+     ```
+          friend istream& operator>>(istream& is, Zmogus& z) {
+               return z.readStudent(is);
+          }
+     ```
+     Išvesties operatorius:
+     ```
+          friend ostream& operator<<(ostream& os, const Zmogus& z) {
+               z.print(os); 
+               return os;
+          }
+     ```
 5. VISI METODAI IŠTESTUOTI IR TESTAVIMO ATVEJAI SĖKMINGI
 
-TESTUOJAMI:
-```
-    1. Default konstruktorius
-    2. Parametrizuotas konstruktorius
-    3. Copy konstruktorius
-    4. Move konstruktorius
-    5. Copy assignment operatorius
-    6. Move assignment operatorius
-    7. Destruktorius
-    8. Get'eriai
-    9. Įvesties/išvesties operatoriai
-```
+     TESTUOJAMI:
+     ```
+         1. Default konstruktorius
+         2. Parametrizuotas konstruktorius
+         3. Copy konstruktorius
+         4. Move konstruktorius
+         5. Copy assignment operatorius
+         6. Move assignment operatorius
+         7. Destruktorius
+         8. Get'eriai
+         9. Įvesties/išvesties operatoriai
+     ```
 ![test2](https://github.com/Vakaris201/Objektinis-2/blob/v1.2/nuotraukos/test2.png)
+
 ![test](https://github.com/Vakaris201/Objektinis-2/blob/v1.2/nuotraukos/test.png)
 
 
