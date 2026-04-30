@@ -24,6 +24,26 @@ public:
     virtual istream& readStudent(istream& is) = 0;
     virtual void print(ostream& os) const = 0;
 
+    virtual ~Zmogus() {};
+    
+    Zmogus(const Zmogus& other) 
+        : vardas_(other.vardas_), pavarde_(other.pavarde_) {};
+
+    Zmogus(Zmogus&& other) noexcept
+        : vardas_(move(other.vardas_)), pavarde_(move(other.pavarde_)) {};
+
+    Zmogus& operator=(const Zmogus& other) {
+        if(this == &other) return *this;
+        vardas_ = other.vardas_;
+        pavarde_ = other.pavarde_;
+        return *this;
+    }
+    Zmogus& operator=(Zmogus&& other) noexcept {
+        if(this == &other) return *this;
+        vardas_ = move(other.vardas_);
+        pavarde_ = move(other.pavarde_);
+        return *this;
+    }
 
     friend istream& operator>>(istream& is, Zmogus& z) {
         return z.readStudent(is);
