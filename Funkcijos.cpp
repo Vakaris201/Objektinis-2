@@ -185,7 +185,6 @@ void print(std::ostream& os, int pasirinkimas, list<studentas>& A, int stud_skai
 }
 
 void failu_generavimas(const string& filename) {
-    int pazymys;
     int dydis = stoi(filename);
     auto start = high_resolution_clock::now();
     ofstream fout(filename);
