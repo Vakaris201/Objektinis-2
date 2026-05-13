@@ -1,4 +1,0 @@
-Vardas    Pavarde             Galutinis (Med.)
-Irma           Pavardaite5         8.00      
-Rokas          Pavardenis3         8.00      
-Dainius        Pavardenis5         3.60      
