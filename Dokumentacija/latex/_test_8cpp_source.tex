@@ -1,0 +1,82 @@
+\doxysection{Test.\+cpp}
+\label{_test_8cpp_source}\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <gtest/gtest.h>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Studentas.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ TEST(StudentasTest,\ DefaultConstructor)}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ Studentas\ S;}
+\DoxyCodeLine{00008\ \ \ \ \ EXPECT\_EQ(S.test\_eilute(),\ Studentas(\textcolor{stringliteral}{"{}Test"{}},\ \textcolor{stringliteral}{"{}Test"{}},\ \{\ 0\ \},\ 0).test\_eilute());}
+\DoxyCodeLine{00009\ \}}
+\DoxyCodeLine{00010\ TEST(StudentasTest,\ ParameterizedConstructor)}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ Studentas\ S(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00013\ \ \ \ \ EXPECT\_EQ(S.test\_eilute(),\ Studentas(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8).test\_eilute());}
+\DoxyCodeLine{00014\ \}}
+\DoxyCodeLine{00015\ TEST(StudentasTest,\ CopyConstructor)}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ Studentas\ S1(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00018\ \ \ \ \ Studentas\ S2(S1);}
+\DoxyCodeLine{00019\ \ \ \ \ EXPECT\_EQ(S1.test\_eilute(),\ S2.test\_eilute());}
+\DoxyCodeLine{00020\ \}}
+\DoxyCodeLine{00021\ TEST(StudentasTest,\ CopyAssignment)}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ Studentas\ S1(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00024\ \ \ \ \ Studentas\ S2;}
+\DoxyCodeLine{00025\ \ \ \ \ S2\ =\ S1;}
+\DoxyCodeLine{00026\ \ \ \ \ EXPECT\_EQ(S1.test\_eilute(),\ S2.test\_eilute());}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ TEST(StudentasTest,\ MoveConstructor)}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ Studentas\ S1(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00031\ \ \ \ \ Studentas\ S2(std::move(S1));}
+\DoxyCodeLine{00032\ \ \ \ \ EXPECT\_EQ(S2.test\_eilute(),\ Studentas(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8).test\_eilute());}
+\DoxyCodeLine{00033\ \ \ \ \ EXPECT\_NE(S1.test\_eilute(),\ S2.test\_eilute());}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ TEST(StudentasTest,\ MoveAssignment)}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ Studentas\ S1(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00038\ \ \ \ \ Studentas\ S2;}
+\DoxyCodeLine{00039\ \ \ \ \ S2\ =\ std::move(S1);}
+\DoxyCodeLine{00040\ \ \ \ \ EXPECT\_EQ(S2.test\_eilute(),\ Studentas(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8).test\_eilute());}
+\DoxyCodeLine{00041\ \ \ \ \ EXPECT\_NE(S1.test\_eilute(),\ S2.test\_eilute());}
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ TEST(StudentasTest,\ Getters)}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ Studentas\ S(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00046\ \ \ \ \ EXPECT\_STREQ(S.vardas().c\_str(),\ \textcolor{stringliteral}{"{}Vardenis"{}});}
+\DoxyCodeLine{00047\ \ \ \ \ EXPECT\_STREQ(S.pavarde().c\_str(),\ \textcolor{stringliteral}{"{}Pavardenis"{}});}
+\DoxyCodeLine{00048\ \ \ \ \ EXPECT\_DOUBLE\_EQ(S.egzam(),\ 8.0);}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ TEST(StudentasTest,\ Destructor)}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ Studentas\ S(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00054\ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ SUCCEED();}
+\DoxyCodeLine{00056\ \}}
+\DoxyCodeLine{00057\ TEST(StudentasTest,\ InputOperator)}
+\DoxyCodeLine{00058\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ std::istringstream\ iss(\textcolor{stringliteral}{"{}Vardenis\ Pavardenis\ 8\ 9\ 7\ 8"{}});}
+\DoxyCodeLine{00060\ \ \ \ \ Studentas\ S;}
+\DoxyCodeLine{00061\ \ \ \ \ iss\ >>\ S;}
+\DoxyCodeLine{00062\ \ \ \ \ EXPECT\_EQ(S.test\_eilute(),\ Studentas(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8).test\_eilute());}
+\DoxyCodeLine{00063\ \ \ \ \ EXPECT\_DOUBLE\_EQ(S.egzam(),\ 8.0);}
+\DoxyCodeLine{00064\ \}}
+\DoxyCodeLine{00065\ TEST(StudentasTest,\ OutputOperator)}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ Studentas\ S(\textcolor{stringliteral}{"{}Vardenis"{}},\ \textcolor{stringliteral}{"{}Pavardenis"{}},\ \{\ 8,9,7\ \},\ 8);}
+\DoxyCodeLine{00068\ \ \ \ \ std::ostringstream\ oss;}
+\DoxyCodeLine{00069\ \ \ \ \ oss\ <<\ S;}
+\DoxyCodeLine{00070\ \ \ \ \ std::string\ expected\ =\ \textcolor{stringliteral}{"{}Vardenis\ \ \ \ \ \ \ Pavardenis\ \ \ \ \ \ \ \ \ \ 8.00\ \ \ \ \ \ "{}};}
+\DoxyCodeLine{00071\ \ \ \ \ EXPECT\_EQ(oss.str(),\ expected);}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ ::testing::InitGoogleTest(\&argc,\ argv);}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{return}\ RUN\_ALL\_TESTS();}
+\DoxyCodeLine{00077\ \}}
+
+\end{DoxyCode}

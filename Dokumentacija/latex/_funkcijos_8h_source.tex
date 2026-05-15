@@ -1,0 +1,74 @@
+\doxysection{Funkcijos.\+h}
+\label{_funkcijos_8h_source}\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FUNKCIJOS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FUNKCIJOS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <deque>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <climits>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{using\ }std::vector;}
+\DoxyCodeLine{00013\ \textcolor{keyword}{using\ }std::deque;}
+\DoxyCodeLine{00014\ \textcolor{keyword}{using\ }std::list;}
+\DoxyCodeLine{00015\ \textcolor{keyword}{using\ }std::string;}
+\DoxyCodeLine{00016\ \textcolor{keyword}{using\ }std::cin;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }std::cout;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ }std::endl;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{struct\ }studentas\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{string}\ vardas;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{string}\ pavarde;}
+\DoxyCodeLine{00023\ \ \ \ \ vector<int>\ paz;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{int}\ egzam;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{double}\ rez;}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ clearInput();}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ vidurkis(studentas\&\ S);}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{void}\ mediana(studentas\&\ S);}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}\ rusiavimas(vector<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ sort\_choice);}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{void}\ rusiavimas(deque<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ sort\_choice);}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{void}\ rusiavimas(list<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ sort\_choice);}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ outputas(vector<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ stud\_skaicius,\ \textcolor{keywordtype}{double}\ test\_time,\ \textcolor{keywordtype}{string}\ filename);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}\ outputas(deque<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ stud\_skaicius,\ \textcolor{keywordtype}{double}\ test\_time,\ \textcolor{keywordtype}{string}\ filename);}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ outputas(list<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ stud\_skaicius,\ \textcolor{keywordtype}{double}\ test\_time,\ \textcolor{keywordtype}{string}\ filename);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{string}\ raide\_choice(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ prompt1);}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{string}\ getWordInput(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ prompt1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ prompt2);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}\ print(std::ostream\&\ os,\ \textcolor{keywordtype}{int}\ pasirinkimas,\ vector<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ stud\_skaicius);}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{void}\ print(std::ostream\&\ os,\ \textcolor{keywordtype}{int}\ pasirinkimas,\ deque<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ stud\_skaicius);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}\ print(std::ostream\&\ os,\ \textcolor{keywordtype}{int}\ pasirinkimas,\ list<studentas>\&\ A,\ \textcolor{keywordtype}{int}\ stud\_skaicius);}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{void}\ failu\_generavimas(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ filename);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{bool}\ compare(\textcolor{keyword}{const}\ T\&\ a,\ \textcolor{keyword}{const}\ T\&\ b)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ <\ b;}
+\DoxyCodeLine{00048\ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ Arg1\ =\ INT\_MIN,\ \textcolor{keywordtype}{int}\ Arg2\ =\ INT\_MAX>}
+\DoxyCodeLine{00051\ T\ getInput(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ prompt1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ prompt2)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ T\ input;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ prompt1;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ cin\ >>\ input;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cin.fail()\ ||\ input\ <\ Arg1\ ||\ input\ >\ Arg2)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(prompt2);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ input;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}(std::exception\&\ e)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ clearInput();}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ e.what()\ <<\ endl;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,310 @@
+\doxysection{main.\+cpp}
+\label{main_8cpp_source}\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <algorithm>}\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <cctype>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <ctime>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <iterator>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Zmones.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}Studentas.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}Funkcijos.h"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ }std::string;}
+\DoxyCodeLine{00018\ \textcolor{keyword}{using\ }std::vector;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{using\ }std::cout;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{using\ }std::cin;}
+\DoxyCodeLine{00021\ \textcolor{keyword}{using\ }std::setw;}
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ }std::left;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{using\ }std::endl;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{using\ }std::ifstream;}
+\DoxyCodeLine{00025\ \textcolor{keyword}{using\ }std::ofstream;}
+\DoxyCodeLine{00026\ \textcolor{keyword}{using\ }std::getline;}
+\DoxyCodeLine{00027\ \textcolor{keyword}{using\ }std::sort;}
+\DoxyCodeLine{00028\ \textcolor{keyword}{using\ }std::stringstream;}
+\DoxyCodeLine{00029\ \textcolor{keyword}{using\ }std::chrono::high\_resolution\_clock;}
+\DoxyCodeLine{00030\ \textcolor{keyword}{using\ }std::chrono::duration;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{int}\ main()\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ srand(time(0));}
+\DoxyCodeLine{00035\ \ \ \ \ system(\textcolor{stringliteral}{"{}dir\ *.txt"{}});}
+\DoxyCodeLine{00036\ \ \ \ \ std::ios::sync\_with\_stdio(\textcolor{keyword}{false});}
+\DoxyCodeLine{00037\ \ \ \ \ vector<Studentas>\ A;}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ temp,\ stud\_skaicius\ =\ 0,\ index\ =\ 0;}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{string}\ f\_choice,\ filename;}
+\DoxyCodeLine{00040\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Ar\ noretumet\ skaityti\ duomenis\ is\ failo?\ (t/n)\ "{}};}
+\DoxyCodeLine{00041\ \ \ \ \ f\_choice\ =\ raide\_choice(}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ t\ arba\ n"{}}}
+\DoxyCodeLine{00043\ \ \ \ \ );}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{if}(f\_choice\ ==\ \textcolor{stringliteral}{"{}t"{}}\ ||\ f\_choice\ ==\ \textcolor{stringliteral}{"{}T"{}})\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Iveskite\ failo\ pavadinima:\ "{}};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ cin\ >>\ filename;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ifstream\ test(filename);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!test)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Failas\ nerastas."{}});}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (std::exception\&\ e)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Klaida:\ "{}}\ <<\ e.what()\ <<\ \textcolor{stringliteral}{"{}\ Pabandykite\ dar\ karta."{}}\ <<\ endl;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ A.reserve(10000000);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ line;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ ifstream\ fin(filename);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ getline(fin,\ line);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ stringstream\ ss;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(getline(fin,\ line))\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ ss.clear();}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ ss.str(line);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ Studentas\ S;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ >>\ S;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ A.push\_back(move(S));}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ stud\_skaicius++;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ fin.close();}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ duration<double>\ diff\ =\ end\ -\/\ start;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ outputas(A,\ stud\_skaicius,\ diff.count(),\ filename);}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ eiga;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Iveskite\ eiga:\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}1\ -\/\ ranka\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}2\ -\/\ generuoti\ tik\ pazymius\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}3\ -\/\ generuoti\ studentu\ vardus,\ pavardes\ ir\ pazymius\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}4\ -\/\ baigti\ darba\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}5\ -\/\ failo\ generavimas\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ eiga\ =\ getInput<int,1,5>(}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Jusu\ pasirinkimas:\ "{}},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ skaiciu\ nuo\ 1\ iki\ 5."{}}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(eiga\ ==\ 4)\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Darbas\ baigtas."{}};}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(eiga\ ==\ 5)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 5;\ i++)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ gen\_failas;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Iveskite\ kiek\ irasu\ faile\ noretumet:\ "{}};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ cin\ >>\ gen\_failas;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ failu\_generavimas(gen\_failas\ +\ \textcolor{stringliteral}{"{}.txt"{}});}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ stud\_skaicius\ =\ getInput<int,1>(}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Kiek\ yra\ studentu?\ "{}},\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ teigiama\ skaiciu."{}}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ vard,\ pavard;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ paz\_temp;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ egz\_temp;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(eiga\ ==\ 1\ ||\ eiga\ ==\ 2)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vard\ =\ getWordInput(}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ varda:\ "{}},}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Vardas\ turi\ buti\ sudarytas\ tik\ is\ raidziu."{}}}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pavard\ =\ getWordInput(}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ pavarde:\ "{}},}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Pavarde\ turi\ buti\ sudaryta\ tik\ is\ raidziu."{}}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(eiga\ ==\ 3)\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ zmogus\ z\ =\ gen();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vard\ =\ z.vardas;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pavard\ =\ z.pavarde;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Sugeneruotas\ zmogus:\ "{}}\ <<\ vard\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ pavard\ <<\ endl;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(eiga\ ==\ 1)\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp\ =\ getInput<int,0,10>(}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ "{}}\ +\ std::to\_string(paz\_temp.size()\ +\ 1)\ +\ \textcolor{stringliteral}{"{}\ semestro\ pazymi\ (0\ -\/\ baigti):\ "{}},}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ skaiciu\ tarp\ 0\ ir\ 10"{}}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(temp\ ==\ 0)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ paz\_temp.push\_back(temp);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ egz\_temp\ =\ getInput<int,1,10>(}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ egzamino\ pazymi:\ "{}},\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ skaiciu\ tarp\ 1\ ir\ 10."{}}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(eiga\ ==\ 2\ ||\ eiga\ ==\ 3)\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ paz\_kiek;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ paz\_kiek\ =\ getInput<int,0>(}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Kiek\ pazymiu\ sugeneruoti?\ "{}},}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ teigiama\ sveika\ skaiciu."{}}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ paz\_kiek;\ i++)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp\ =\ rand()\ \%\ 10\ +\ 1;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ i+1\ <<\ \textcolor{stringliteral}{"{}\ Sugeneruotas\ pazymys:\ "{}}\ <<\ temp\ <<\ endl;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ paz\_temp.push\_back(temp);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ egz\_temp\ =\ rand()\ \%\ 10\ +\ 1;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Sugeneruotas\ egzamino\ pazymys:\ "{}}\ <<\ egz\_temp\ <<\ endl;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ stringstream\ ss;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ vard\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ pavard;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ paz\_temp.size();\ i++)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ paz\_temp[i];}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ egz\_temp;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ Studentas\ S;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ >>\ S;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ A.push\_back(move(S));}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ student\_choice;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index\ <\ stud\_skaicius\ -\/\ 1)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Ar\ noretumet\ ivesti\ dar\ viena\ studenta?\ (t/n)\ "{}};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ student\_choice\ =\ raide\_choice(}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ t\ arba\ n"{}}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(student\_choice\ ==\ \textcolor{stringliteral}{"{}t"{}}\ ||\ student\_choice\ ==\ \textcolor{stringliteral}{"{}T"{}})\ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ stud\_skaicius++;}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ index++;}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index\ >=\ stud\_skaicius)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ outputas(A,\ stud\_skaicius,\ 0,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{00182\ \ \ \ \ \}}
+\DoxyCodeLine{00183\ \}}
+\DoxyCodeLine{00184\ \textcolor{keywordtype}{void}\ outputas(vector<Studentas>\&\ A,\ \textcolor{keywordtype}{int}\ stud\_skaicius,\ \textcolor{keywordtype}{double}\ test\_time,\ \textcolor{keywordtype}{string}\ filename)\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{int}\ grade\_choice;}
+\DoxyCodeLine{00186\ \ \ \ \ grade\_choice\ =\ getInput<int,1,2>(}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Isvesti\ vidurki\ ar\ mediana?\ (1\ -\/\ vidurkis,\ 2\ -\/\ mediana)\ "{}},}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ 1\ arba\ 2."{}}}
+\DoxyCodeLine{00189\ \ \ \ \ );}
+\DoxyCodeLine{00190\ \ \ \ \ double\ (*strategija)(vector<int>\&);}
+\DoxyCodeLine{00191\ \ \ \ \ (grade\_choice\ ==\ 1)?\ strategija\ =\ vidurkis\ :\ strategija\ =\ mediana;}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ stud\_skaicius;\ i++)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ A[i].skaiciuotiRez(strategija);}
+\DoxyCodeLine{00195\ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Ar\ norite\ atskirti\ vargsiukus\ nuo\ kietiaku?\ (t/n)\ "{}};}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{string}\ divide\_choice;}
+\DoxyCodeLine{00198\ \ \ \ \ divide\_choice\ =\ raide\_choice(}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ t\ arba\ n"{}}}
+\DoxyCodeLine{00200\ \ \ \ \ );}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{int}\ sort\_choice;}
+\DoxyCodeLine{00202\ \ \ \ \ sort\_choice\ =\ getInput<int,1,3>(}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Kaip\ surusiuoti\ rezultatus?\ (1\ -\/\ pagal\ varda,\ 2\ -\/\ pagal\ pavarde,\ 3\ -\/\ pagal\ galutini\ bala)\ "{}},}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ 1,\ 2\ arba\ 3."{}}}
+\DoxyCodeLine{00205\ \ \ \ \ );}
+\DoxyCodeLine{00206\ \ \ \ \ \textcolor{keywordflow}{if}(divide\_choice\ ==\ \textcolor{stringliteral}{"{}t"{}}\ ||\ divide\_choice\ ==\ \textcolor{stringliteral}{"{}T"{}})\ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ divide\_strategy;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Kuria\ skaidymo\ strategija\ norite\ naudoti?\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}1\ -\/\ Du\ nauji\ konteineriai\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}2\ -\/\ Vienas\ naujas\ konteineris\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}3\ -\/\ Efektyvus\ darbus\ su\ konteineriais\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ divide\_strategy\ =\ getInput<int,1,3>(}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Jusu\ pasirinkimas:\ "{}},}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ 1,\ 2\ arba\ 3."{}}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start1\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ rusiavimas(A,\ sort\_choice);}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end1\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ duration<double>\ diff1\ =\ end1\ -\/\ start1;}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ vector<Studentas>\ vargsiukai;}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ vector<Studentas>\ kietiakai;}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start2\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(divide\_strategy\ ==\ 1)\ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ vargsiukai.reserve(6000000);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ kietiakai.reserve(6000000);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ stud\_skaicius;\ i++)\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(A[i].rez()\ <\ 5)\ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vargsiukai.push\_back(A[i]);}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ kietiakai.push\_back(A[i]);}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(divide\_strategy\ ==\ 2)\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ vargsiukai.reserve(6000000);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ it\ =\ A.end();\ it\ !=\ A.begin();)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it-\/-\/;}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(it-\/>rez()\ <\ 5)\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vargsiukai.push\_back(*it);}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ it\ =\ A.erase(it);}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ std::reverse(vargsiukai.begin(),\ vargsiukai.end());}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(divide\_strategy\ ==\ 3)\ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ split\_it\ =\ std::stable\_partition(A.begin(),\ A.end(),}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ Studentas\&\ s)\ \{}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ s.rez()\ >=\ 5;}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ vargsiukai.reserve(std::distance(split\_it,\ A.end()));}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ it\ =\ split\_it;\ it\ !=\ A.end();\ it++)\ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vargsiukai.push\_back(move(*it));}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ A.erase(split\_it,\ A.end());}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end2\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ duration<double>\ diff2\ =\ end2\ -\/\ start2;}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ ofstream\ v\_fout(\textcolor{stringliteral}{"{}vargsiukai.txt"{}});}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ ofstream\ k\_fout(\textcolor{stringliteral}{"{}kietiakai.txt"{}});}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start3\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ print(v\_fout,\ grade\_choice,\ vargsiukai,\ vargsiukai.size());}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end3\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ duration<double>\ diff3\ =\ end3\ -\/\ start3;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start4\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(divide\_strategy\ ==\ 1)\ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ print(k\_fout,\ grade\_choice,\ kietiakai,\ kietiakai.size());}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ print(k\_fout,\ grade\_choice,\ A,\ A.size());}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end4\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ duration<double>\ diff4\ =\ end4\ -\/\ start4;}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ v\_fout.close();}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ k\_fout.close();}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ cout\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\ Failo\ skaitymo\ laikas:\ "{}}\ <<\ test\_time\ <<\ endl;}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ cout\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\ Rusiavimo\ laikas:\ "{}}\ <<\ diff1.count()\ <<\ endl;}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ cout\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\ Vargsiuku\ ir\ kietiaku\ atskyrimo\ laikas:\ "{}}\ <<\ diff2.count()\ <<\ endl;}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ cout\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\ Vargsiuku\ isvedimo\ i\ faila\ laikas:\ "{}}\ <<\ diff3.count()\ <<\ endl;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ cout\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\ Kietiaku\ isvedimo\ i\ faila\ laikas:\ "{}}\ <<\ diff4.count()\ <<\ endl;}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ cout\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\ Testu\ laikas:\ "{}}\ <<\ test\_time\ +\ diff1.count()\ +\ diff2.count()\ +\ diff3.count()\ +\ diff4.count()\ <<\ endl;}
+\DoxyCodeLine{00283\ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ rusiavimas(A,\ sort\_choice);}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ output\_choice;}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ output\_choice\ =\ getInput<int,1,2>(}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Kaip\ norite\ isvesti\ rezultatus?\ (1\ -\/\ i\ ekrana,\ 2\ -\/\ i\ faila)\ "{}},}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Iveskite\ 1\ arba\ 2."{}}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ start\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(output\_choice\ ==\ 1)\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ print(cout,\ grade\_choice,\ A,\ stud\_skaicius);}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ ofstream\ fout(\textcolor{stringliteral}{"{}rezultatai.txt"{}});}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ print(fout,\ grade\_choice,\ A,\ stud\_skaicius);}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Rezultatai\ faile\ -\/\ rezultatai.txt"{}}\ <<\ endl;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ fout.close();}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ end\ =\ high\_resolution\_clock::now();}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ duration<double>\ diff\ =\ end\ -\/\ start;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Duomenu\ isvedimas\ uztruko:\ "{}}\ <<\ diff.count()\ <<\ \textcolor{stringliteral}{"{}\ sekundziu."{}}\ <<\ endl;}
+\DoxyCodeLine{00304\ \ \ \ \ \}}
+\DoxyCodeLine{00305\ \}}
+
+\end{DoxyCode}

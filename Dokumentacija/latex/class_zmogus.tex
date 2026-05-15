@@ -1,0 +1,241 @@
+\doxysection{Zmogus Class Reference}
+\label{class_zmogus}\index{Zmogus@{Zmogus}}
+
+
+{\ttfamily \+\#include $<$Person.\+h$>$}
+
+Inheritance diagram for Zmogus:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_zmogus}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Zmogus} ()
+\item 
+\textbf{ Zmogus} (string vardas, string pavarde)
+\item 
+virtual string \textbf{ vardas} () const
+\item 
+virtual string \textbf{ pavarde} () const
+\item 
+virtual double \textbf{ gal\+Balas} () const =0
+\item 
+virtual istream \& \textbf{ read\+Student} (istream \&is)=0
+\item 
+virtual void \textbf{ print} (ostream \&os) const =0
+\item 
+virtual \textbf{ $\sim$\+Zmogus} ()
+\item 
+\textbf{ Zmogus} (const \textbf{ Zmogus} \&other)
+\item 
+\textbf{ Zmogus} (\textbf{ Zmogus} \&\&other) noexcept
+\item 
+\textbf{ Zmogus} \& \textbf{ operator=} (const \textbf{ Zmogus} \&other)
+\item 
+\textbf{ Zmogus} \& \textbf{ operator=} (\textbf{ Zmogus} \&\&other) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \textbf{ vardas\+\_\+}
+\item 
+string \textbf{ pavarde\+\_\+}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+istream \& \textbf{ operator$>$$>$} (istream \&is, \textbf{ Zmogus} \&z)
+\item 
+ostream \& \textbf{ operator$<$$<$} (ostream \&os, const \textbf{ Zmogus} \&z)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \textbf{ 11} of file \textbf{ Person.\+h}.
+
+
+
+\label{class_zmogus_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\doxysubsubsection{Zmogus()\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_zmogus_aa7a8ba4d3c4778f9b35d59eef3e72574} 
+Zmogus::\+\+Zmogus (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \textbf{ 17} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\doxysubsubsection{Zmogus()\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_zmogus_abcea2eb5f4c209f8623405a3d838f1c2} 
+Zmogus::\+\+Zmogus (\begin{DoxyParamCaption}\item[{string}]{vardas}{, }\item[{string}]{pavarde}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \textbf{ 18} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!````~Zmogus@{$\sim$Zmogus}}
+\index{````~Zmogus@{$\sim$Zmogus}!Zmogus@{Zmogus}}
+\doxysubsubsection{$\sim$Zmogus()}
+{\footnotesize\ttfamily \label{class_zmogus_ac5615bf607a8f2f1b303ffa04328d24d} 
+virtual Zmogus::\+$\sim$\+Zmogus (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \textbf{ 27} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\doxysubsubsection{Zmogus()\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_zmogus_a9d2bbeaf83ead87dbb686ee04999885f} 
+Zmogus::\+\+Zmogus (\begin{DoxyParamCaption}\item[{const \textbf{ Zmogus} \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \textbf{ 29} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\index{Zmogus@{Zmogus}!Zmogus@{Zmogus}}
+\doxysubsubsection{Zmogus()\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_zmogus_a97c679fdf47100b8d6a9a7e17d4953c2} 
+Zmogus::\+\+Zmogus (\begin{DoxyParamCaption}\item[{\textbf{ Zmogus} \&\&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line \textbf{ 32} of file \textbf{ Person.\+h}.
+
+
+
+\label{class_zmogus_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{Zmogus@{Zmogus}!galBalas@{galBalas}}
+\index{galBalas@{galBalas}!Zmogus@{Zmogus}}
+\doxysubsubsection{galBalas()}
+{\footnotesize\ttfamily \label{class_zmogus_aaa5dfd2f9731a628fd64afd8881ff31e} 
+virtual double Zmogus::\+gal\+Balas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \textbf{ Studentas} \doxyref{}{p.}{class_studentas_a14377d4e266a10c84d6fd0c537b6321b}.
+
+\index{Zmogus@{Zmogus}!operator=@{operator=}}
+\index{operator=@{operator=}!Zmogus@{Zmogus}}
+\doxysubsubsection{operator=()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_zmogus_a8bc6d11547d75c71a38567f750f02612} 
+\textbf{ Zmogus} \& Zmogus::\+operator= (\begin{DoxyParamCaption}\item[{const \textbf{ Zmogus} \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \textbf{ 35} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!operator=@{operator=}}
+\index{operator=@{operator=}!Zmogus@{Zmogus}}
+\doxysubsubsection{operator=()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_zmogus_af6745536a52d1e85a49c2680199f9a80} 
+\textbf{ Zmogus} \& Zmogus::\+operator= (\begin{DoxyParamCaption}\item[{\textbf{ Zmogus} \&\&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Definition at line \textbf{ 41} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!pavarde@{pavarde}}
+\index{pavarde@{pavarde}!Zmogus@{Zmogus}}
+\doxysubsubsection{pavarde()}
+{\footnotesize\ttfamily \label{class_zmogus_aba9f5c58201207c9ada551baceb1eea0} 
+virtual string Zmogus::\+pavarde (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \textbf{ 21} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!print@{print}}
+\index{print@{print}!Zmogus@{Zmogus}}
+\doxysubsubsection{print()}
+{\footnotesize\ttfamily \label{class_zmogus_a9ce4363639f154cc246dfddf697822ba} 
+virtual void Zmogus::\+print (\begin{DoxyParamCaption}\item[{ostream \&}]{os}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \textbf{ Studentas} \doxyref{}{p.}{class_studentas_a22d1d5c66b6b1a8addd2a733a0b36fda}.
+
+\index{Zmogus@{Zmogus}!readStudent@{readStudent}}
+\index{readStudent@{readStudent}!Zmogus@{Zmogus}}
+\doxysubsubsection{readStudent()}
+{\footnotesize\ttfamily \label{class_zmogus_a2093826ca48e5e00b5c3acfbf56dbd86} 
+virtual istream \& Zmogus::\+read\+Student (\begin{DoxyParamCaption}\item[{istream \&}]{is}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \textbf{ Studentas} \doxyref{}{p.}{class_studentas_ab6cea19fd044fb27d13816e9cc5b469e}.
+
+\index{Zmogus@{Zmogus}!vardas@{vardas}}
+\index{vardas@{vardas}!Zmogus@{Zmogus}}
+\doxysubsubsection{vardas()}
+{\footnotesize\ttfamily \label{class_zmogus_a27a248ac6c61fa29d8f98383892f6ab8} 
+virtual string Zmogus::\+vardas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \textbf{ 20} of file \textbf{ Person.\+h}.
+
+
+
+\label{class_zmogus_doc-related-members}
+\doxysubsection{Friends And Related Symbol Documentation}
+\index{Zmogus@{Zmogus}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Zmogus@{Zmogus}}
+\doxysubsubsection{operator$<$$<$}
+{\footnotesize\ttfamily \label{class_zmogus_a5c89ec4f26c3fbefcac2b60bdd5e9b51} 
+ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{os}{, }\item[{const \textbf{ Zmogus} \&}]{z}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \textbf{ 51} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Zmogus@{Zmogus}}
+\doxysubsubsection{operator$>$$>$}
+{\footnotesize\ttfamily \label{class_zmogus_a599ebe45e125e2a660821038d81569f8} 
+istream \& operator$>$$>$ (\begin{DoxyParamCaption}\item[{istream \&}]{is}{, }\item[{\textbf{ Zmogus} \&}]{z}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line \textbf{ 48} of file \textbf{ Person.\+h}.
+
+
+
+\label{class_zmogus_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\index{Zmogus@{Zmogus}!pavarde\_@{pavarde\_}}
+\index{pavarde\_@{pavarde\_}!Zmogus@{Zmogus}}
+\doxysubsubsection{pavarde\_}
+{\footnotesize\ttfamily \label{class_zmogus_a95b83ef4d9bbe9b88d78c17563bafa5a} 
+string Zmogus::\+pavarde\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \textbf{ 14} of file \textbf{ Person.\+h}.
+
+\index{Zmogus@{Zmogus}!vardas\_@{vardas\_}}
+\index{vardas\_@{vardas\_}!Zmogus@{Zmogus}}
+\doxysubsubsection{vardas\_}
+{\footnotesize\ttfamily \label{class_zmogus_a09b290c9be6039ce3a94e1557def9b3a} 
+string Zmogus::\+vardas\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \textbf{ 13} of file \textbf{ Person.\+h}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Person.\+h}\end{DoxyCompactItemize}

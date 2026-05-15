@@ -1,0 +1,110 @@
+\doxysection{Studentas.\+h File Reference}
+\label{_studentas_8h}\index{Studentas.h@{Studentas.h}}
+{\ttfamily \+\#include $<$iostream$>$}\newline
+{\ttfamily \+\#include $<$string$>$}\newline
+{\ttfamily \+\#include $<$vector$>$}\newline
+{\ttfamily \+\#include $<$algorithm$>$}\newline
+{\ttfamily \+\#include $<$stdexcept$>$}\newline
+{\ttfamily \+\#include $<$numeric$>$}\newline
+{\ttfamily \+\#include $<$iomanip$>$}\newline
+{\ttfamily \+\#include "{}Person.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ Studentas}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \textbf{ mediana} (vector$<$ int $>$ \&paz)
+\item 
+double \textbf{ vidurkis} (vector$<$ int $>$ \&paz)
+\item 
+bool \textbf{ compare} (const \textbf{ Studentas} \&a, const \textbf{ Studentas} \&b)
+\item 
+bool \textbf{ compare\+Pagal\+Pavarde} (const \textbf{ Studentas} \&a, const \textbf{ Studentas} \&b)
+\item 
+bool \textbf{ compare\+Pagal\+Rez} (const \textbf{ Studentas} \&a, const \textbf{ Studentas} \&b)
+\item 
+void \textbf{ rusiavimas} (vector$<$ \textbf{ Studentas} $>$ \&A, int sort\+\_\+choice)
+\item 
+void \textbf{ print} (ostream \&os, int pasirinkimas, const vector$<$ \textbf{ Studentas} $>$ \&A, int stud\+\_\+skaicius)
+\item 
+void \textbf{ outputas} (vector$<$ \textbf{ Studentas} $>$ \&A, int stud\+\_\+skaicius, double test\+\_\+time, string filename)
+\end{DoxyCompactItemize}
+
+
+\label{_studentas_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\index{Studentas.h@{Studentas.h}!compare@{compare}}
+\index{compare@{compare}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{compare()}
+{\footnotesize\ttfamily \label{_studentas_8h_ab61fdda5da1fd7d3128ca416c9dcd00b} 
+bool compare (\begin{DoxyParamCaption}\item[{const \textbf{ Studentas} \&}]{a}{, }\item[{const \textbf{ Studentas} \&}]{b}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 139} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas.h@{Studentas.h}!comparePagalPavarde@{comparePagalPavarde}}
+\index{comparePagalPavarde@{comparePagalPavarde}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{comparePagalPavarde()}
+{\footnotesize\ttfamily \label{_studentas_8h_a3bb6ccb88204b8e5648eaedf0ac7bfa7} 
+bool compare\+Pagal\+Pavarde (\begin{DoxyParamCaption}\item[{const \textbf{ Studentas} \&}]{a}{, }\item[{const \textbf{ Studentas} \&}]{b}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 143} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas.h@{Studentas.h}!comparePagalRez@{comparePagalRez}}
+\index{comparePagalRez@{comparePagalRez}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{comparePagalRez()}
+{\footnotesize\ttfamily \label{_studentas_8h_acfe73fdfede235fab0ab1613eed127ee} 
+bool compare\+Pagal\+Rez (\begin{DoxyParamCaption}\item[{const \textbf{ Studentas} \&}]{a}{, }\item[{const \textbf{ Studentas} \&}]{b}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 147} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas.h@{Studentas.h}!mediana@{mediana}}
+\index{mediana@{mediana}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{mediana()}
+{\footnotesize\ttfamily \label{_studentas_8h_a8e11cfad204f26ff5965e9232d023eb4} 
+double mediana (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{paz}{}\end{DoxyParamCaption})}
+
+\index{Studentas.h@{Studentas.h}!outputas@{outputas}}
+\index{outputas@{outputas}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{outputas()}
+{\footnotesize\ttfamily \label{_studentas_8h_abb8519a51bbe7e00d0c43dc44faf7c0f} 
+void outputas (\begin{DoxyParamCaption}\item[{vector$<$ \textbf{ Studentas} $>$ \&}]{A}{, }\item[{int}]{stud\+\_\+skaicius}{, }\item[{double}]{test\+\_\+time}{, }\item[{string}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 184} of file \textbf{ main.\+cpp}.
+
+\index{Studentas.h@{Studentas.h}!print@{print}}
+\index{print@{print}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{print()}
+{\footnotesize\ttfamily \label{_studentas_8h_ab8c8ee6ac5ce336d812c49f0aeec2f81} 
+void print (\begin{DoxyParamCaption}\item[{ostream \&}]{os}{, }\item[{int}]{pasirinkimas}{, }\item[{const vector$<$ \textbf{ Studentas} $>$ \&}]{A}{, }\item[{int}]{stud\+\_\+skaicius}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 163} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas.h@{Studentas.h}!rusiavimas@{rusiavimas}}
+\index{rusiavimas@{rusiavimas}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{rusiavimas()}
+{\footnotesize\ttfamily \label{_studentas_8h_a33000357992c7da8f8f4adb34721561b} 
+void rusiavimas (\begin{DoxyParamCaption}\item[{vector$<$ \textbf{ Studentas} $>$ \&}]{A}{, }\item[{int}]{sort\+\_\+choice}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 151} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas.h@{Studentas.h}!vidurkis@{vidurkis}}
+\index{vidurkis@{vidurkis}!Studentas.h@{Studentas.h}}
+\doxysubsubsection{vidurkis()}
+{\footnotesize\ttfamily \label{_studentas_8h_a5ddcf386c6835f0cd5b456531f2cd524} 
+double vidurkis (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{paz}{}\end{DoxyParamCaption})}
+

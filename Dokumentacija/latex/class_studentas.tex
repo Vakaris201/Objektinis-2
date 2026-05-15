@@ -1,0 +1,281 @@
+\doxysection{Studentas Class Reference}
+\label{class_studentas}\index{Studentas@{Studentas}}
+
+
+{\ttfamily \+\#include $<$Studentas.\+h$>$}
+
+Inheritance diagram for Studentas:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_studentas}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Studentas} ()
+\item 
+\textbf{ Studentas} (string vardas, string pavarde, vector$<$ int $>$ paz, double egzam)
+\item 
+\textbf{ Studentas} (istream \&is)
+\item 
+double \textbf{ egzam} () const
+\item 
+double \textbf{ rez} () const
+\item 
+const vector$<$ int $>$ \& \textbf{ paz} () const
+\item 
+double \textbf{ gal\+Balas} () const override
+\item 
+void \textbf{ print} (ostream \&os) const override
+\item 
+double \textbf{ gal\+Balas} (double($\ast$)(vector$<$ int $>$ \&)=\textbf{ mediana}) const
+\item 
+void \textbf{ skaiciuoti\+Rez} (double($\ast$)(vector$<$ int $>$ \&)=\textbf{ mediana})
+\item 
+\textbf{ $\sim$\+Studentas} () override
+\item 
+\textbf{ Studentas} (const \textbf{ Studentas} \&other)
+\item 
+\textbf{ Studentas} (\textbf{ Studentas} \&\&other) noexcept
+\item 
+\textbf{ Studentas} \& \textbf{ operator=} (const \textbf{ Studentas} \&other)
+\item 
+\textbf{ Studentas} \& \textbf{ operator=} (\textbf{ Studentas} \&\&other) noexcept
+\item 
+istream \& \textbf{ read\+Student} (istream \&is) override
+\item 
+string \textbf{ test\+\_\+eilute} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \textbf{ Zmogus}}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Zmogus} ()
+\item 
+\textbf{ Zmogus} (string vardas, string pavarde)
+\item 
+virtual string \textbf{ vardas} () const
+\item 
+virtual string \textbf{ pavarde} () const
+\item 
+virtual \textbf{ $\sim$\+Zmogus} ()
+\item 
+\textbf{ Zmogus} (const \textbf{ Zmogus} \&other)
+\item 
+\textbf{ Zmogus} (\textbf{ Zmogus} \&\&other) noexcept
+\item 
+\textbf{ Zmogus} \& \textbf{ operator=} (const \textbf{ Zmogus} \&other)
+\item 
+\textbf{ Zmogus} \& \textbf{ operator=} (\textbf{ Zmogus} \&\&other) noexcept
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \textbf{ Zmogus}}
+\begin{DoxyCompactItemize}
+\item 
+string \textbf{ vardas\+\_\+}
+\item 
+string \textbf{ pavarde\+\_\+}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \textbf{ 31} of file \textbf{ Studentas.\+h}.
+
+
+
+\label{class_studentas_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\doxysubsubsection{Studentas()\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily \label{class_studentas_ab459e995e8c9b24cdc9aec5b09a66539} 
+Studentas::\+\+Studentas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 4} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\doxysubsubsection{Studentas()\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \label{class_studentas_af351261af8bd1dfdd39e59dfc2e74f09} 
+Studentas::\+\+Studentas (\begin{DoxyParamCaption}\item[{string}]{vardas}{, }\item[{string}]{pavarde}{, }\item[{vector$<$ int $>$}]{paz}{, }\item[{double}]{egzam}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 10} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\doxysubsubsection{Studentas()\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily \label{class_studentas_ac77218d8cb02b1259ec679e6dfab304c} 
+Studentas::\+\+Studentas (\begin{DoxyParamCaption}\item[{istream \&}]{is}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 16} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!````~Studentas@{$\sim$Studentas}}
+\index{````~Studentas@{$\sim$Studentas}!Studentas@{Studentas}}
+\doxysubsubsection{$\sim$Studentas()}
+{\footnotesize\ttfamily \label{class_studentas_a1842a8cc1832df3ff02680383f473d98} 
+Studentas::\+$\sim$\+Studentas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \textbf{ 99} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\doxysubsubsection{Studentas()\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily \label{class_studentas_aef0484fe46cf05746f8ffc0d083fcf3e} 
+Studentas::\+\+Studentas (\begin{DoxyParamCaption}\item[{const \textbf{ Studentas} \&}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 101} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\index{Studentas@{Studentas}!Studentas@{Studentas}}
+\doxysubsubsection{Studentas()\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily \label{class_studentas_a732b15e3745fa8e35ff0002cfc4b73b5} 
+Studentas::\+\+Studentas (\begin{DoxyParamCaption}\item[{\textbf{ Studentas} \&\&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line \textbf{ 107} of file \textbf{ Studentas.\+cpp}.
+
+
+
+\label{class_studentas_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\index{Studentas@{Studentas}!egzam@{egzam}}
+\index{egzam@{egzam}!Studentas@{Studentas}}
+\doxysubsubsection{egzam()}
+{\footnotesize\ttfamily \label{class_studentas_aab01e47057145a2c53b31b3892b97686} 
+double Studentas::\+egzam (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \textbf{ 42} of file \textbf{ Studentas.\+h}.
+
+\index{Studentas@{Studentas}!galBalas@{galBalas}}
+\index{galBalas@{galBalas}!Studentas@{Studentas}}
+\doxysubsubsection{galBalas()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_studentas_a14377d4e266a10c84d6fd0c537b6321b} 
+double Studentas::\+gal\+Balas (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \textbf{ Zmogus} \doxyref{}{p.}{class_zmogus_aaa5dfd2f9731a628fd64afd8881ff31e}.
+
+
+
+Definition at line \textbf{ 46} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!galBalas@{galBalas}}
+\index{galBalas@{galBalas}!Studentas@{Studentas}}
+\doxysubsubsection{galBalas()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_studentas_ac183b871edfc887996fd3847ed7ff5eb} 
+double Studentas::\+gal\+Balas (\begin{DoxyParamCaption}\item[{double($\ast$}]{strategija~}{)(vector$<$ int $>$ \&) = {\ttfamily \textbf{ mediana}}}\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \textbf{ 60} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!operator=@{operator=}}
+\index{operator=@{operator=}!Studentas@{Studentas}}
+\doxysubsubsection{operator=()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_studentas_a25bcc531503d3bc490dab4a656e3b8e9} 
+\textbf{ Studentas} \& Studentas::\+operator= (\begin{DoxyParamCaption}\item[{const \textbf{ Studentas} \&}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 114} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!operator=@{operator=}}
+\index{operator=@{operator=}!Studentas@{Studentas}}
+\doxysubsubsection{operator=()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_studentas_a6379482d741209e9a2d902023676fb45} 
+\textbf{ Studentas} \& Studentas::\+operator= (\begin{DoxyParamCaption}\item[{\textbf{ Studentas} \&\&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line \textbf{ 123} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!paz@{paz}}
+\index{paz@{paz}!Studentas@{Studentas}}
+\doxysubsubsection{paz()}
+{\footnotesize\ttfamily \label{class_studentas_ab1329cf7ec560fa7557e2c2cfe6517bd} 
+const vector$<$ int $>$ \& Studentas::\+paz (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \textbf{ 44} of file \textbf{ Studentas.\+h}.
+
+\index{Studentas@{Studentas}!print@{print}}
+\index{print@{print}!Studentas@{Studentas}}
+\doxysubsubsection{print()}
+{\footnotesize\ttfamily \label{class_studentas_a22d1d5c66b6b1a8addd2a733a0b36fda} 
+void Studentas::\+print (\begin{DoxyParamCaption}\item[{ostream \&}]{os}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \textbf{ Zmogus} \doxyref{}{p.}{class_zmogus_a9ce4363639f154cc246dfddf697822ba}.
+
+
+
+Definition at line \textbf{ 134} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!readStudent@{readStudent}}
+\index{readStudent@{readStudent}!Studentas@{Studentas}}
+\doxysubsubsection{readStudent()}
+{\footnotesize\ttfamily \label{class_studentas_ab6cea19fd044fb27d13816e9cc5b469e} 
+istream \& Studentas::\+read\+Student (\begin{DoxyParamCaption}\item[{istream \&}]{is}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \textbf{ Zmogus} \doxyref{}{p.}{class_zmogus_a2093826ca48e5e00b5c3acfbf56dbd86}.
+
+
+
+Definition at line \textbf{ 78} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!rez@{rez}}
+\index{rez@{rez}!Studentas@{Studentas}}
+\doxysubsubsection{rez()}
+{\footnotesize\ttfamily \label{class_studentas_afc2600fc4aebcc1940987a6b75b40150} 
+double Studentas::\+rez (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \textbf{ 43} of file \textbf{ Studentas.\+h}.
+
+\index{Studentas@{Studentas}!skaiciuotiRez@{skaiciuotiRez}}
+\index{skaiciuotiRez@{skaiciuotiRez}!Studentas@{Studentas}}
+\doxysubsubsection{skaiciuotiRez()}
+{\footnotesize\ttfamily \label{class_studentas_a9f0b6439ae07759f2f91733952c839f2} 
+void Studentas::\+skaiciuoti\+Rez (\begin{DoxyParamCaption}\item[{double($\ast$}]{strategija~}{)(vector$<$ int $>$ \&) = {\ttfamily \textbf{ mediana}}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 74} of file \textbf{ Studentas.\+cpp}.
+
+\index{Studentas@{Studentas}!test\_eilute@{test\_eilute}}
+\index{test\_eilute@{test\_eilute}!Studentas@{Studentas}}
+\doxysubsubsection{test\_eilute()}
+{\footnotesize\ttfamily \label{class_studentas_aa064071eb09915956789440fbaf8e953} 
+string Studentas::\+test\+\_\+eilute (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 172} of file \textbf{ Studentas.\+cpp}.
+
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+\textbf{ Studentas.\+h}\item 
+\textbf{ Studentas.\+cpp}\end{DoxyCompactItemize}
