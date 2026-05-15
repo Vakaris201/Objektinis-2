@@ -1,5 +1,0 @@
-C:/Users/vakar/OneDrive - Vilnius University/Desktop/VS code/1 uzduotis/build/CMakeFiles/vector.dir
-C:/Users/vakar/OneDrive - Vilnius University/Desktop/VS code/1 uzduotis/build/CMakeFiles/list.dir
-C:/Users/vakar/OneDrive - Vilnius University/Desktop/VS code/1 uzduotis/build/CMakeFiles/deque.dir
-C:/Users/vakar/OneDrive - Vilnius University/Desktop/VS code/1 uzduotis/build/CMakeFiles/edit_cache.dir
-C:/Users/vakar/OneDrive - Vilnius University/Desktop/VS code/1 uzduotis/build/CMakeFiles/rebuild_cache.dir
