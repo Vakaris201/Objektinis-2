@@ -20,7 +20,7 @@ class Vector {
     Vector(); //Default constructor
     explicit Vector(size_type count, const T& value = T()); //Constructor with count and default value: v(count, value)
     Vector(std::initializer_list<T> list); //Constructor with initializer list: v{a, b, c}
-    Vector(const Vector& other); //Copy constructor 
+    Vector(const Vector& other); //Copy constructor
     Vector(Vector&& other) noexcept; //Move constructor
     template<class InputIt>
     Vector(InputIt first, InputIt last); //Constructor with range: v(x.begin(), x.end())
@@ -36,4 +36,20 @@ class Vector {
     void assign(InputIt first, InputIt last); //Assign new contents from range: v.assign(x.begin(), x.end())
 
     allocator_type get_allocator() const noexcept; //Get allocator
+
+    // Element access
+    reference at(size_type pos); //Access element with bounds checking: v.at(pos)
+    const_reference at(size_type pos) const; //Access element with bounds checking: v.at
+
+    reference operator[](size_type pos); //Access element without bounds checking: v[pos]
+    const_reference operator[](size_type pos) const; //Access element without bounds checking: v[pos]
+
+    reference front(); //Access first element: v.front()
+    const_reference front() const; //Access first element: v.front()
+
+    reference back(); //Access last element: v.back()
+    const_reference back() const; //Access last element: v.back()
+
+    // Iterators
+    
 };
