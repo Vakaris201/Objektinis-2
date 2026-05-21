@@ -15,15 +15,25 @@ class Vector {
     using reverse_iterator = std::reverse_iterator<iterator>;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
+    // Member functions
     // Constructors
     Vector(); //Default constructor
-    explicit Vector(size_type count, const T& value = T()); //Constructor with size and default value: v(size, value)
+    explicit Vector(size_type count, const T& value = T()); //Constructor with count and default value: v(count, value)
     Vector(std::initializer_list<T> list); //Constructor with initializer list: v{a, b, c}
-    Vector(const Vector& other); //Copy constructor
+    Vector(const Vector& other); //Copy constructor 
     Vector(Vector&& other) noexcept; //Move constructor
+    template<class InputIt>
+    Vector(InputIt first, InputIt last); //Constructor with range: v(x.begin(), x.end())
     ~Vector(); //Destructor
 
-    Vector& operator=(const Vector& other); //Copy assignment operator
-    Vector& operator=(Vector&& other) noexcept; //Move assignment operator
+    Vector& operator=(const Vector& other); //Copy assignment operator: x = y
+    Vector& operator=(Vector&& other) noexcept; //Move assignment operator: x = std::move(y)
+    Vector& operator=(std::initializer_list<value_type> ilist); //Initializer list assignment operator: x = {a, b, c}
 
+    void assign(size_type count, const T& value); //Assign new contents to the vector: v.assign(count, value)
+    void assign(std::initializer_list<T> list); //Assign new contents from initializer list: v.assign{a, b, c}
+    template <class InputIt> 
+    void assign(InputIt first, InputIt last); //Assign new contents from range: v.assign(x.begin(), x.end())
+
+    allocator_type get_allocator() const noexcept; //Get allocator
 };
