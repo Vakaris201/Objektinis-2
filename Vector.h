@@ -115,4 +115,22 @@ class Vector {
 
     void swap(Vector<T, Alloc>& left, Vector<T, Alloc>& right) noexcept; //Non-member swap function: swap(v1, v2)
     
+    private:
+    pointer data_ = nullptr; //Pointer to the underlying array
+    size_type size_ = 0; //Number of elements in the vector
+    size_type capacity_ = 0; //Capacity of the vector
+    allocator_type allocator_; //Allocator for managing memory
+
+    static constexpr size_type initial_capacity = 1; //Initial capacity for the vector
+
+    pointer allocate(size_type n); //Allocate memory for n elements
+    void deallocate(pointer p, size_type n) noexcept; //Deallocate memory for n elements at pointer p
+    void reallocate(size_type new_capacity); //Reallocate memory to new capacity
+    void grow_if_needed(); //Grow the vector if size exceeds capacity
+
+    void construct_at(pointer p, const T& value); //Construct element at pointer p with value
+    void destroy_at(pointer p) noexcept; //Destroy element at pointer p
+
+    void move_from(Vector&& other) noexcept; //Move resources from another vector
+    void copy_from(const Vector& other); //Copy resources from another vector
 };
