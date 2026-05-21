@@ -16,7 +16,6 @@ class Vector {
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
     // Member functions
-    // Constructors
     Vector(); //Default constructor
     explicit Vector(size_type count, const T& value = T()); //Constructor with count and default value: v(count, value)
     Vector(std::initializer_list<T> list); //Constructor with initializer list: v{a, b, c}
@@ -51,5 +50,21 @@ class Vector {
     const_reference back() const; //Access last element: v.back()
 
     // Iterators
-    
+    iterator begin() noexcept; //Return iterator to beginning: v.begin()
+    const_iterator begin() const noexcept; //Return const iterator to beginning: v.begin()
+    const_iterator cbegin() const noexcept; //Return const iterator to beginning: v.cbegin()
+
+    iterator end() noexcept; //Return iterator to end: v.end()
+    const_iterator end() const noexcept; //Return const iterator to end: v.end()
+    const_iterator cend() const noexcept; //Return const iterator to end: v.cend()
+
+    reverse_iterator rbegin() noexcept; //Return reverse iterator to beginning: v.rbegin()
+    const_reverse_iterator rbegin() const noexcept; //Return const reverse iterator to beginning: v.rbegin()
+    const_reverse_iterator crbegin() const noexcept; //Return const reverse iterator to beginning: v.crbegin()
+
+    reverse_iterator rend() noexcept; //Return reverse iterator to end: v.rend()
+    const_reverse_iterator rend() const noexcept; //Return const reverse iterator to end: v.rend()
+    const_reverse_iterator crend() const noexcept; //Return const reverse iterator to end: v.crend()
+
+    // Capacity
 };
