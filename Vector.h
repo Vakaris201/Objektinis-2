@@ -102,4 +102,17 @@ class Vector {
     void resize(size_type count, const value_type& value); //Change size to count and fill new elements with value: v.resize(count, value)
 
     void swap(Vector& other) noexcept; //Swap contents with another vector: v.swap(other)
+
+    // Non-member functions
+    template <class T, class Alloc>
+    friend bool operator==(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Equality operator: v1 == v2
+    friend bool operator!=(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Inequality operator: v1 != v2
+    friend bool operator<(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Less-than operator: v1 < v2
+    friend bool operator<=(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Less-than or equal operator: v1 <= v2
+    friend bool operator>(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Greater-than operator: v1 > v2
+    friend bool operator>=(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Greater-than or equal operator: v1 >= v2
+    friend bool operator<=>(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Three-way comparison operator: v1 <=> v2
+
+    void swap(Vector<T, Alloc>& left, Vector<T, Alloc>& right) noexcept; //Non-member swap function: swap(v1, v2)
+    
 };
