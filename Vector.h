@@ -67,4 +67,10 @@ class Vector {
     const_reverse_iterator crend() const noexcept; //Return const reverse iterator to end: v.crend()
 
     // Capacity
+    bool empty() const noexcept; //Check if vector is empty: v.empty()
+    size_type size() const noexcept; //Return number of elements: v.size()
+    size_type max_size() const noexcept; //Return maximum number of elements: v.max_size()
+    void reserve(size_type new_cap); //Request a change in capacity: v.reserve(new_cap)
+    size_type capacity() const noexcept; //Return current capacity: v.capacity()
+    void shrink_to_fit(); //Reduce capacity to fit size: v.shrink_to_fit()
 };
