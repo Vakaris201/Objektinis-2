@@ -15,4 +15,15 @@ class Vector {
     using reverse_iterator = std::reverse_iterator<iterator>;
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
+    // Constructors
+    Vector(); //Default constructor
+    explicit Vector(size_type count, const T& value = T()); //Constructor with size and default value: v(size, value)
+    Vector(std::initializer_list<T> list); //Constructor with initializer list: v{a, b, c}
+    Vector(const Vector& other); //Copy constructor
+    Vector(Vector&& other) noexcept; //Move constructor
+    ~Vector(); //Destructor
+
+    Vector& operator=(const Vector& other); //Copy assignment operator
+    Vector& operator=(Vector&& other) noexcept; //Move assignment operator
+
 };
