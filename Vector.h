@@ -73,4 +73,33 @@ class Vector {
     void reserve(size_type new_cap); //Request a change in capacity: v.reserve(new_cap)
     size_type capacity() const noexcept; //Return current capacity: v.capacity()
     void shrink_to_fit(); //Reduce capacity to fit size: v.shrink_to_fit()
+
+    // Modifiers
+    void clear() noexcept; //Clear contents: v.clear()
+
+    iterator insert(const_iterator pos, const T& value); //Insert element before pos: v.insert(pos, value)
+    iterator insert(const_iterator pos, T&& value); //Insert element before pos: v.insert(pos, std::move(value))
+    iterator insert(const_iterator pos, size_type count, const T& value); //Insert count copies of value before pos: v.insert(pos, count, value)
+    template <class InputIt>
+    iterator insert(const_iterator pos, InputIt first, InputIt last); //Insert elements from range [first, last) before pos: v.insert(pos, x.begin(), x.end())
+    iterator insert(const_iterator pos, std::initializer_list<T> list); //Insert elements from initializer list before pos: v.insert(pos, {a, b, c})
+
+    template <class... Args>
+    iterator emplace(const_iterator pos, Args&&... args); //Construct element in-place before pos: v.emplace(pos, args...)
+
+    iterator erase(const_iterator pos); //Erase element at pos: v.erase(pos)
+    iterator erase(const_iterator first, const_iterator last); //Erase elements in range [first, last): v.erase(x.begin(), x.end())
+
+    void push_back(const T& value); //Add element to end: v.push_back(value)
+    void push_back(T&& value); //Add element to end: v.push_back(std::move(value))
+
+    template <class... Args>
+    void emplace_back(Args&&... args); //Construct element in-place at end: v.emplace_back(args...)
+
+    void pop_back(); //Remove last element: v.pop_back()
+
+    void resize(size_type count); //Change size to count: v.resize(count)
+    void resize(size_type count, const value_type& value); //Change size to count and fill new elements with value: v.resize(count, value)
+
+    void swap(Vector& other) noexcept; //Swap contents with another vector: v.swap(other)
 };
