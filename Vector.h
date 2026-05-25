@@ -1,3 +1,12 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+
+#include <memory>
+#include <iterator>
+#include <stdexcept>
+#include <algorithm>
+#include <initializer_list>
+
 template <typename T>
 class Vector {
     public:
@@ -16,9 +25,22 @@ class Vector {
     using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
     // Member functions
-    Vector(); //Default constructor
-    explicit Vector(size_type count, const T& value = T()); //Constructor with count and default value: v(count, value)
-    Vector(std::initializer_list<T> list); //Constructor with initializer list: v{a, b, c}
+    Vector() noexcept : data_(nullptr), size_(0), capacity_(0) {} //Default constructor
+
+    explicit Vector(size_type count, const T& value = T()) //Constructor with count and default value: v(count, value)
+        : data_(nullptr), size_(0), capacity_(0) { 
+        if(count > 0) {
+            data_ = allocate(count);
+            capacity_ = count;
+            for(size_type i = 0; i < count; i++) {
+                construct_at(data_ + i, value);
+            }
+            size_ = count;
+        }
+    }
+
+    Vector(std::initializer_list<T> list) { //Constructor with in itializer list: v{a, b, c}
+    }
     Vector(const Vector& other); //Copy constructor
     Vector(Vector&& other) noexcept; //Move constructor
     template<class InputIt>
@@ -98,22 +120,12 @@ class Vector {
 
     void pop_back(); //Remove last element: v.pop_back()
 
-    void resize(size_type count); //Change size to count: v.resize(count)
+    void resize(size_type count) { //Change size to count: v.resize(count)
+        resize(count, value_type{});
+    }
     void resize(size_type count, const value_type& value); //Change size to count and fill new elements with value: v.resize(count, value)
 
     void swap(Vector& other) noexcept; //Swap contents with another vector: v.swap(other)
-
-    // Non-member functions
-    template <class T, class Alloc>
-    friend bool operator==(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Equality operator: v1 == v2
-    friend bool operator!=(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Inequality operator: v1 != v2
-    friend bool operator<(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Less-than operator: v1 < v2
-    friend bool operator<=(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Less-than or equal operator: v1 <= v2
-    friend bool operator>(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Greater-than operator: v1 > v2
-    friend bool operator>=(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Greater-than or equal operator: v1 >= v2
-    friend bool operator<=>(const Vector<T, Alloc>& left, const Vector<T, Alloc>& right); //Three-way comparison operator: v1 <=> v2
-
-    void swap(Vector<T, Alloc>& left, Vector<T, Alloc>& right) noexcept; //Non-member swap function: swap(v1, v2)
     
     private:
     pointer data_ = nullptr; //Pointer to the underlying array
@@ -123,14 +135,79 @@ class Vector {
 
     static constexpr size_type initial_capacity = 1; //Initial capacity for the vector
 
-    pointer allocate(size_type n); //Allocate memory for n elements
-    void deallocate(pointer p, size_type n) noexcept; //Deallocate memory for n elements at pointer p
-    void reallocate(size_type new_capacity); //Reallocate memory to new capacity
-    void grow_if_needed(); //Grow the vector if size exceeds capacity
+    pointer allocate(size_type n) { //Allocate memory for n elements
+        return n ? std::allocator_traits<allocator_type>::allocate(allocator_, n) : nullptr;
+    }
 
-    void construct_at(pointer p, const T& value); //Construct element at pointer p with value
-    void destroy_at(pointer p) noexcept; //Destroy element at pointer p
+    void deallocate(pointer p, size_type n) noexcept { //Deallocate memory for n elements at pointer p
+        if(p) std::allocator_traits<allocator_type>::deallocate(allocator_, p, n);
+    }
 
-    void move_from(Vector&& other) noexcept; //Move resources from another vector
-    void copy_from(const Vector& other); //Copy resources from another vector
+    void reallocate(size_type new_capacity) { //Reallocate memory to new capacity
+        pointer new_data = allocate(new_capacity);
+        for(size_type i = 0; i < size_; i++) {
+            construct_at(new_data + i, std::move(data_[i]));
+            destroy_at(data_ + i);
+        }
+        deallocate(data_, capacity_);
+        data_ = new_data;
+        capacity_ = new_capacity;
+    }
+    void grow_if_needed() { //Grow the vector if size exceeds capacity
+        if(size_ >= capacity_) {
+            reallocate(capacity_ == 0 ? initial_capacity : capacity_ * 2);
+        }
+    }
+
+    void construct_at(pointer p, const T& value) { //Construct element at pointer p with value
+        std::allocator_traits<allocator_type>::construct(allocator_, p, value);
+    }
+
+    void destroy_at(pointer p) noexcept { //Destroy element at pointer p
+        std::allocator_traits<allocator_type>::destroy(allocator_, p);
+    }
+
+    void move_from(Vector&& other) noexcept { //Move resources from another vector
+        data_ = other.data_;
+        size_ = other.size_;
+        capacity_ = other.capacity_;
+        allocator_ = std::move(other.allocator_);
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
+    }
+
+    void copy_from(const Vector& other) { //Copy resources from another vector
+        if(other.size_ == 0) return;
+        data_ = allocate(other.size_);
+        size_ = other.size_;
+        capacity_ = other.capacity_;
+        for(size_type i = 0; i < size_; i++) {
+            construct_at(data_ + i, other.data_[i]);
+        }
+    }
 };
+
+// Non-member functions
+template <typename T>
+bool operator==(const Vector<T>& left, const Vector<T>& right); //Equality comparison: v1 == v2
+
+template <typename T>
+bool operator!=(const Vector<T>& left, const Vector<T>& right); //Inequality comparison: v1 != v2
+
+template <typename T>
+bool operator<(const Vector<T>& left, const Vector<T>& right); //Less-than comparison: v1 < v2
+
+template <typename T>
+bool operator<=(const Vector<T>& left, const Vector<T>& right); //Less-than or equal comparison: v1 <= v2
+
+template <typename T>
+bool operator>(const Vector<T>& left, const Vector<T>& right); //Greater-than comparison: v1 > v2
+
+template <typename T>
+bool operator>=(const Vector<T>& left, const Vector<T>& right); //Greater-than or equal comparison: v1 >= v2
+
+template <typename T>
+void swap(Vector<T>& left, Vector<T>& right) noexcept; //Non-member swap: swap(left, right)
+
+#endif
