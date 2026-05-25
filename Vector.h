@@ -31,11 +31,11 @@ class Vector {
         : data_(nullptr), size_(0), capacity_(0) { 
         if(count > 0) {
             data_ = allocate(count);
+            size_ = count;
             capacity_ = count;
             for(size_type i = 0; i < count; i++) {
                 construct_at(data_ + i, value);
             }
-            size_ = count;
         }
     }
 
@@ -43,8 +43,9 @@ class Vector {
         : data_(nullptr), size_(0), capacity_(0) {
         data_ = allocate(list.size());
         capacity_ = list.size();
-        for(auto i : list) {
-            construct_at(data_ + size_++, i)
+        for(const T& val : list) {
+            construct_at(data_ + size_, val);
+            size_++;
         }
     }
 
@@ -69,14 +70,64 @@ class Vector {
         clear();
         if(data_) deallocate(data_, capacity_);
     }
-    Vector& operator=(const Vector& other); //Copy assignment operator: x = y
-    Vector& operator=(Vector&& other) noexcept; //Move assignment operator: x = std::move(y)
-    Vector& operator=(std::initializer_list<value_type> ilist); //Initializer list assignment operator: x = {a, b, c}
 
-    void assign(size_type count, const T& value); //Assign new contents to the vector: v.assign(count, value)
-    void assign(std::initializer_list<T> list); //Assign new contents from initializer list: v.assign{a, b, c}
+    Vector& operator=(const Vector& other) { //Copy assignment operator: x = y
+        if(this == &other) return *this;
+        clear();
+        deallocate(data_, capacity_);
+        data_ = nullptr;
+        size_ = 0;
+        capacity_ = 0;
+        copy_from(other);
+        return *this;
+    }
+
+    Vector& operator=(Vector&& other) noexcept { //Move assignment operator: x = std::move(y)
+        if (this == &other) return *this;
+        clear();
+        deallocate(data_, capacity_);
+        data_ = nullptr;
+        size_ = 0;
+        capacity_ = 0;
+        move_from(std::move(other));
+        return *this;
+    }
+    Vector& operator=(std::initializer_list<value_type> list) { //Initializer list assignment operator: x = {a, b, c}
+        clear();
+        deallocate(data_, capacity_);
+        data_ = nullptr;
+        size_ = 0;
+        capacity_ = 0;
+        data_ = allocate(list.size());
+        capacity_ = list.size();
+        for(const auto& val : list) {
+            construct_at(data_ + size_, val);
+            size_++;
+        }
+        return *this;
+    }
+    void assign(size_type count, const T& value) { //Assign new contents to the vector: v.assign(count, value)
+        clear();
+        if(count > capacity_) {
+            deallocate(data_, capacity_);
+            data_ = allocate(count);
+            capacity_ = count;
+        }
+        for(size_type i = 0; i < count; i++) {
+            construct_at(data_ + i, value);
+        }
+        size_ = count;
+    }
+    void assign(std::initializer_list<T> list) { //Assign new contents from initializer list: v.assign{a, b, c}
+        assign(list.begin(), list.end());
+    }
     template <class InputIt> 
-    void assign(InputIt first, InputIt last); //Assign new contents from range: v.assign(x.begin(), x.end())
+    void assign(InputIt first, InputIt last) { //Assign new contents from range: v.assign(x.begin(), x.end())
+        clear();
+        for(auto it = first; it != last; it++) {
+            push_back(*it);
+        }
+    }
 
     allocator_type get_allocator() const noexcept; //Get allocator
 
@@ -119,8 +170,12 @@ class Vector {
     void shrink_to_fit(); //Reduce capacity to fit size: v.shrink_to_fit()
 
     // Modifiers
-    void clear() noexcept; //Clear contents: v.clear()
-
+    void clear() noexcept { //Clear contents: v.clear()
+        for(size_type i = 0; i < size_; i++) {
+            destroy_at(data_ + i);
+        }
+        size_ = 0;
+    }
     iterator insert(const_iterator pos, const T& value); //Insert element before pos: v.insert(pos, value)
     iterator insert(const_iterator pos, T&& value); //Insert element before pos: v.insert(pos, std::move(value))
     iterator insert(const_iterator pos, size_type count, const T& value); //Insert count copies of value before pos: v.insert(pos, count, value)
@@ -134,8 +189,16 @@ class Vector {
     iterator erase(const_iterator pos); //Erase element at pos: v.erase(pos)
     iterator erase(const_iterator first, const_iterator last); //Erase elements in range [first, last): v.erase(x.begin(), x.end())
 
-    void push_back(const T& value); //Add element to end: v.push_back(value)
-    void push_back(T&& value); //Add element to end: v.push_back(std::move(value))
+    void push_back(const T& value) { //Add element to end: v.push_back(value)
+        grow_if_needed();
+        construct_at(data_ + size_, value);
+        size++;
+    }
+    void push_back(T&& value) { //Add element to end: v.push_back(std::move(value))
+        grow_if_needed();
+        construct_at(data_ + size_, std::move(value));
+        size++;
+    }
 
     template <class... Args>
     void emplace_back(Args&&... args); //Construct element in-place at end: v.emplace_back(args...)
@@ -147,7 +210,12 @@ class Vector {
     }
     void resize(size_type count, const value_type& value); //Change size to count and fill new elements with value: v.resize(count, value)
 
-    void swap(Vector& other) noexcept; //Swap contents with another vector: v.swap(other)
+    void swap(Vector& other) noexcept {  //Swap contents with another vector: v.swap(other)
+        std::swap(data_, other.data_);
+        std::swap(size_, other.size_);
+        std::swap(capacity_, other.capacity_);
+        std::swap(allocator_, other.allocator_);
+    }
     
     private:
     pointer data_ = nullptr; //Pointer to the underlying array
@@ -192,16 +260,6 @@ class Vector {
         std::allocator_traits<allocator_type>::destroy(allocator_, p);
     }
 
-    void move_from(Vector&& other) noexcept { //Move resources from another vector
-        data_ = other.data_;
-        size_ = other.size_;
-        capacity_ = other.capacity_;
-        allocator_ = std::move(other.allocator_);
-        other.data_ = nullptr;
-        other.size_ = 0;
-        other.capacity_ = 0;
-    }
-
     void copy_from(const Vector& other) { //Copy resources from another vector
         if(other.size_ == 0) return;
         data_ = allocate(other.size_);
@@ -210,6 +268,16 @@ class Vector {
         for(size_type i = 0; i < size_; i++) {
             construct_at(data_ + i, other.data_[i]);
         }
+    }
+
+    void move_from(Vector&& other) noexcept { //Move resources from another vector
+        data_ = other.data_;
+        size_ = other.size_;
+        capacity_ = other.capacity_;
+        allocator_ = std::move(other.allocator_);
+        other.data_ = nullptr;
+        other.size_ = 0;
+        other.capacity_ = 0;
     }
 };
 
