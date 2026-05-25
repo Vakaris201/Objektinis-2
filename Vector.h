@@ -39,14 +39,36 @@ class Vector {
         }
     }
 
-    Vector(std::initializer_list<T> list) { //Constructor with in itializer list: v{a, b, c}
+    Vector(std::initializer_list<T> list) //Constructor with in itializer list: v{a, b, c}
+        : data_(nullptr), size_(0), capacity_(0) {
+        data_ = allocate(list.size());
+        capacity_ = list.size();
+        for(auto i : list) {
+            construct_at(data_ + size_++, i)
+        }
     }
-    Vector(const Vector& other); //Copy constructor
-    Vector(Vector&& other) noexcept; //Move constructor
-    template<class InputIt>
-    Vector(InputIt first, InputIt last); //Constructor with range: v(x.begin(), x.end())
-    ~Vector(); //Destructor
 
+    Vector(const Vector& other) //Copy constructor
+        : data_(nullptr), size_(0), capacity_(0) {
+        copy_from(other);
+    }
+
+    Vector(Vector&& other) noexcept //Move constructor
+        : data_(nullptr), size_(0), capacity_(0) {
+        move_from(std::move(other));
+    }
+
+    template<class InputIt>
+    Vector(InputIt first, InputIt last)  //Constructor with range: v(x.begin(), x.end())
+        : data_(nullptr), size_(0), capacity_(0) {
+        for(auto it = first; it != last; it++) {
+            push_back(*it);
+        }
+    }
+    ~Vector() { //Destructor
+        clear();
+        if(data_) deallocate(data_, capacity_);
+    }
     Vector& operator=(const Vector& other); //Copy assignment operator: x = y
     Vector& operator=(Vector&& other) noexcept; //Move assignment operator: x = std::move(y)
     Vector& operator=(std::initializer_list<value_type> ilist); //Initializer list assignment operator: x = {a, b, c}
@@ -162,6 +184,9 @@ class Vector {
     void construct_at(pointer p, const T& value) { //Construct element at pointer p with value
         std::allocator_traits<allocator_type>::construct(allocator_, p, value);
     }
+    void construct_at(pointer p, T&& value) {
+        std::allocator_traits<allocator_type>::construct(allocator_, p, std::move(value));
+    }
 
     void destroy_at(pointer p) noexcept { //Destroy element at pointer p
         std::allocator_traits<allocator_type>::destroy(allocator_, p);
@@ -190,24 +215,44 @@ class Vector {
 
 // Non-member functions
 template <typename T>
-bool operator==(const Vector<T>& left, const Vector<T>& right); //Equality comparison: v1 == v2
+bool operator==(const Vector<T>& left, const Vector<T>& right) { //Equality comparison: v1 == v2
+    if(left.size() != right.size()) return false;
+    for(Vector<T>::size_type i = 0; i < left.size(); i++) {
+        if(left[i] != right[i]) return false;
+    }
+    return true;
+}
 
 template <typename T>
-bool operator!=(const Vector<T>& left, const Vector<T>& right); //Inequality comparison: v1 != v2
+bool operator!=(const Vector<T>& left, const Vector<T>& right) { //Inequality comparison: v1 != v2
+    return !(left == right);
+}
 
 template <typename T>
-bool operator<(const Vector<T>& left, const Vector<T>& right); //Less-than comparison: v1 < v2
+bool operator<(const Vector<T>& left, const Vector<T>& right) { //Less-than comparison: v1 < v2
+    return std::lexicographical_compare(
+        left.begin(), left.end(),
+        right.begin(), right.end());
+}
 
 template <typename T>
-bool operator<=(const Vector<T>& left, const Vector<T>& right); //Less-than or equal comparison: v1 <= v2
+bool operator<=(const Vector<T>& left, const Vector<T>& right) { //Less-than or equal comparison: v1 <= v2
+    return !(right < left);
+}
 
 template <typename T>
-bool operator>(const Vector<T>& left, const Vector<T>& right); //Greater-than comparison: v1 > v2
+bool operator>(const Vector<T>& left, const Vector<T>& right) { //Greater-than comparison: v1 > v2
+    return right < left;
+}
 
 template <typename T>
-bool operator>=(const Vector<T>& left, const Vector<T>& right); //Greater-than or equal comparison: v1 >= v2
+bool operator>=(const Vector<T>& left, const Vector<T>& right) { //Greater-than or equal comparison: v1 >= v2
+    return !(left < right);
+}
 
 template <typename T>
-void swap(Vector<T>& left, Vector<T>& right) noexcept; //Non-member swap: swap(left, right)
+void swap(Vector<T>& left, Vector<T>& right) noexcept { //Non-member swap: swap(left, right)
+    left.swap(right);
+}
 
 #endif
