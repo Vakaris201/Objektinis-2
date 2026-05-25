@@ -83,7 +83,7 @@ class Vector {
     }
 
     Vector& operator=(Vector&& other) noexcept { //Move assignment operator: x = std::move(y)
-        if (this == &other) return *this;
+        if(this == &other) return *this;
         clear();
         deallocate(data_, capacity_);
         data_ = nullptr;
@@ -129,37 +129,51 @@ class Vector {
         }
     }
 
-    allocator_type get_allocator() const noexcept; //Get allocator
+    allocator_type get_allocator() const noexcept {return allocator_;} //Get allocator
 
     // Element access
-    reference at(size_type pos); //Access element with bounds checking: v.at(pos)
-    const_reference at(size_type pos) const; //Access element with bounds checking: v.at
+    reference at(size_type pos) { //Access element with bounds checking: v.at(pos)
+        if(pos >= size_) {
+            throw std::out_of_range("Vector::indeksas uz ribu");
+        }
+        return data_[pos];
+    }
 
-    reference operator[](size_type pos); //Access element without bounds checking: v[pos]
-    const_reference operator[](size_type pos) const; //Access element without bounds checking: v[pos]
+    const_reference at(size_type pos) const { //Access element with bounds checking: v.at(pos)
+        if(pos >= size_) {
+            throw std::out_of_range("Vector::indeksas uz ribu");
+        }
+        return data_[pos];
+    }
 
-    reference front(); //Access first element: v.front()
-    const_reference front() const; //Access first element: v.front()
+    reference operator[](size_type pos) {return data_[pos];} //Access element without bounds checking: v[pos]
+    const_reference operator[](size_type pos) const {return data_[pos];} //Access element without bounds checking: v[pos]
 
-    reference back(); //Access last element: v.back()
-    const_reference back() const; //Access last element: v.back()
+    reference front() {return data_[0];} //Access first element: v.front()
+    const_reference front() const {return data_[0];} //Access first element: v.front()
+
+    reference back() {return data_[size_ - 1];} //Access last element: v.back()
+    const_reference back() const {return data_[size_ - 1];} //Access last element: v.back()
+
+    pointer data() noexcept {return data_;}
+    const_pointer data() const noexcept {return data_;}
 
     // Iterators
-    iterator begin() noexcept; //Return iterator to beginning: v.begin()
-    const_iterator begin() const noexcept; //Return const iterator to beginning: v.begin()
-    const_iterator cbegin() const noexcept; //Return const iterator to beginning: v.cbegin()
+    iterator begin() noexcept {return data_;} //Return iterator to beginning: v.begin()
+    const_iterator begin() const noexcept {return data_;} //Return const iterator to beginning: v.begin()
+    const_iterator cbegin() const noexcept {return data_;} //Return const iterator to beginning: v.cbegin()
 
-    iterator end() noexcept; //Return iterator to end: v.end()
-    const_iterator end() const noexcept; //Return const iterator to end: v.end()
-    const_iterator cend() const noexcept; //Return const iterator to end: v.cend()
+    iterator end() noexcept {return data_ + size_;} //Return iterator to end: v.end()
+    const_iterator end() const noexcept {return data_ + size_;} //Return const iterator to end: v.end()
+    const_iterator cend() const noexcept {return data_ + size_;} //Return const iterator to end: v.cend()
 
-    reverse_iterator rbegin() noexcept; //Return reverse iterator to beginning: v.rbegin()
-    const_reverse_iterator rbegin() const noexcept; //Return const reverse iterator to beginning: v.rbegin()
-    const_reverse_iterator crbegin() const noexcept; //Return const reverse iterator to beginning: v.crbegin()
+    reverse_iterator rbegin() noexcept {return reverse_iterator(end());} //Return reverse iterator to beginning: v.rbegin()
+    const_reverse_iterator rbegin() const noexcept {return reverse_iterator(end());}//Return const reverse iterator to beginning: v.rbegin()
+    const_reverse_iterator crbegin() const noexcept {return reverse_iterator(end());} //Return const reverse iterator to beginning: v.crbegin()
 
-    reverse_iterator rend() noexcept; //Return reverse iterator to end: v.rend()
-    const_reverse_iterator rend() const noexcept; //Return const reverse iterator to end: v.rend()
-    const_reverse_iterator crend() const noexcept; //Return const reverse iterator to end: v.crend()
+    reverse_iterator rend() noexcept {return reverse_iterator(begin());} //Return reverse iterator to end: v.rend()
+    const_reverse_iterator rend() const noexcept {return reverse_iterator(begin());} //Return const reverse iterator to end: v.rend()
+    const_reverse_iterator crend() const noexcept {return reverse_iterator(begin());} //Return const reverse iterator to end: v.crend()
 
     // Capacity
     bool empty() const noexcept; //Check if vector is empty: v.empty()
