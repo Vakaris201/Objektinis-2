@@ -3,13 +3,16 @@
 
 #include <iostream>
 #include <vector>
+#include "Vector.h"
 #include <deque>
 #include <list>
 #include <string>
 #include <stdexcept>
 #include <climits>
 
-using std::vector;
+//using std::vector;
+template<typename T>
+using vector = Vector<T>;
 using std::deque;
 using std::list;
 using std::string;

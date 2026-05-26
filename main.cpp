@@ -16,7 +16,9 @@
 #include "Vector.h"
 
 using std::string;
-using std::vector;
+//using std::vector
+template<typename T>
+using vector = Vector<T>;
 using std::cout;
 using std::cin;
 using std::setw;

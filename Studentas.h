@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Vector.h"
 #include <algorithm>
 #include <stdexcept>
 #include <numeric>
@@ -11,7 +12,9 @@
 #include "Person.h"
 
 using std::string;
-using std::vector;
+//using std::vector;
+template<typename T>
+using vector = Vector<T>;
 using std::istream;
 using std::ostream;
 using std::sort;

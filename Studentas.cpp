@@ -17,7 +17,7 @@ Studentas::Studentas(istream& is) : Zmogus() {
     readStudent(is);
 }
 
-double mediana(std::vector<int>& paz) {
+double mediana(vector<int>& paz) {
     double med;
     if (paz.empty()) {
         return 0;
@@ -32,7 +32,7 @@ double mediana(std::vector<int>& paz) {
     return med;
 }
 
-double vidurkis(std::vector<int>& paz) {
+double vidurkis(vector<int>& paz) {
     if (paz.empty()) {
         return 0;
     }
