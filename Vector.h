@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <initializer_list>
+#include <utility> 
 
 template <typename T>
 class Vector {
@@ -168,12 +169,12 @@ class Vector {
     const_iterator cend() const noexcept {return data_ + size_;} //Return const iterator to end: v.cend()
 
     reverse_iterator rbegin() noexcept {return reverse_iterator(end());} //Return reverse iterator to beginning: v.rbegin()
-    const_reverse_iterator rbegin() const noexcept {return reverse_iterator(end());}//Return const reverse iterator to beginning: v.rbegin()
-    const_reverse_iterator crbegin() const noexcept {return reverse_iterator(end());} //Return const reverse iterator to beginning: v.crbegin()
+    const_reverse_iterator rbegin() const noexcept {return const_reverse_iterator(end());}//Return const reverse iterator to beginning: v.rbegin()
+    const_reverse_iterator crbegin() const noexcept {return const_reverse_iterator(end());} //Return const reverse iterator to beginning: v.crbegin()
 
     reverse_iterator rend() noexcept {return reverse_iterator(begin());} //Return reverse iterator to end: v.rend()
-    const_reverse_iterator rend() const noexcept {return reverse_iterator(begin());} //Return const reverse iterator to end: v.rend()
-    const_reverse_iterator crend() const noexcept {return reverse_iterator(begin());} //Return const reverse iterator to end: v.crend()
+    const_reverse_iterator rend() const noexcept {return const_reverse_iterator(begin());} //Return const reverse iterator to end: v.rend()
+    const_reverse_iterator crend() const noexcept {return const_reverse_iterator(begin());} //Return const reverse iterator to end: v.crend()
 
     // Capacity
     bool empty() const noexcept {return size_ == 0;} //Check if vector is empty: v.empty()
@@ -186,8 +187,8 @@ class Vector {
 
     void reserve(size_type new_cap) { //Request a change in capacity: v.reserve(new_cap)
         if(new_cap <= capacity_) return;
-        if(new_cap >= max_size()) {
-            throw std::length_error("Vector::reserve - per didelis dydis")
+        if(new_cap > max_size()) {
+            throw std::length_error("Vector::reserve - per didelis dydis");
         }
         reallocate(new_cap);
     }
@@ -263,7 +264,7 @@ class Vector {
         size_type index = pos - data_;
         grow_if_needed();
         for(size_type i = size_; i > index; i--) {
-            construct(data_ + i, std::move(data_[i - 1]));
+            construct_at(data_ + i, std::move(data_[i - 1]));
         }
         if(index < size_) {
             destroy_at(data_ + index);
@@ -295,24 +296,24 @@ class Vector {
     void push_back(const T& value) { //Add element to end: v.push_back(value)
         grow_if_needed();
         construct_at(data_ + size_, value);
-        size++;
+        ++size_;
     }
 
     void push_back(T&& value) { //Add element to end: v.push_back(std::move(value))
         grow_if_needed();
         construct_at(data_ + size_, std::move(value));
-        size++;
+        ++size_;
     }
 
     template <class... Args>
-    void emplace_back(Args&&... args) {//Construct element in-place at end: v.emplace_back(args...)
+    reference emplace_back(Args&&... args) {//Construct element in-place at end: v.emplace_back(args...)
         grow_if_needed();
         construct_at(data_ + size_, std::forward<Args>(args)...);
         return data_[size_++];
     }
 
-    void pop_back() {//Remove last element: v.pop_back()
-        destroy_at(data_ + size_--);
+    void pop_back() { //Remove last element: v.pop_back()
+        destroy_at(data_ + --size_);
     }
 
     void resize(size_type count) { //Change size to count: v.resize(count)
@@ -406,7 +407,7 @@ class Vector {
 template <typename T>
 bool operator==(const Vector<T>& left, const Vector<T>& right) { //Equality comparison: v1 == v2
     if(left.size() != right.size()) return false;
-    for(Vector<T>::size_type i = 0; i < left.size(); i++) {
+    for(typename Vector<T>::size_type i = 0; i < left.size(); i++) {
         if(left[i] != right[i]) return false;
     }
     return true;

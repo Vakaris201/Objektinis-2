@@ -62,26 +62,29 @@ Jei atsakote `t`, bus paprašyta nurodyti failo pavadinimą. Programa perskaitys
 2 - į failą (rezultatai.txt)
 Jei pasirenkate atskyrimo funkcionalumą, rezultatai bus rašomi į vargsiukai.txt ir kietiakai.txt
 ```
-RELEASE APRAŠAS
-1. v1.1
+SPARTOS ANALIZE
 ```
-Šioje versijoje programa buvo refaktorinta iš Studentas struktūros i klasę.
+10000
+std::vector| 0.0000955  0.0000971  0.0000989  VIDURKIS: 0.0000972
+     Vector| 0.0002361  0.0002378  0.0002364  VIDURKIS: 0.0002368
 ```
-2. v1.2
 ```
-Šioje versijoje buvo realizuoti ir įgyvendinti visi "Rule of five" bei įvesties/išvesties operatoriai.
-Taip pat buvo realizuoti unit testai patikrinti visus metodus.
+100000
+std::vector| 0.0007214  0.0007328  0.0007481  VIDURKIS: 0.0007341
+     Vector| 0.0019603  0.0019655  0.0019742  VIDURKIS: 0.0019667
 ```
-3. v1.5
 ```
-Šioje versijoje buvo realizuota bazinė klasė Zmogus ir klasė Studentas tapo išvestine.
-Zmogus klasėje taip pat realizuoti ir įgyvendinti visi "Rule of five" metodai.
-įvesties/išvesties operatoriai tapo friend.
-Visi metodai buvo patikrinti unit testais.
+1000000
+std::vector| 0.0063360  0.0067428  0.0064534  VIDURKIS: 0.0065107
+     Vector| 0.0177377  0.0186053  0.0173773  VIDURKIS: 0.0179068
 ```
-4. v2.0
 ```
-Šioje versijoje buvo sukurta programos dokumentacija.
-Unit testai pakeičiami į google testus.
-Atnaujinamas cmakelists file'as naujam programos release'ui su veikiančiais testais.
+10000000
+std::vector| 0.0717720  0.0660837  0.0660015  VIDURKIS: 0.0679524
+     Vector| 0.2280760  0.2284510  0.2289040  VIDURKIS: 0.228477
+```
+```
+100000000
+std::vector| 0.659925    0.634871  0.618443   VIDURKIS: 0.637746
+     Vector| 1.957130    1.9552    1.93473    VIDURKIS: 1.94902
 ```

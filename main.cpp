@@ -13,6 +13,7 @@
 #include "Zmones.h"
 #include "Studentas.h"
 #include "Funkcijos.h"
+#include "Vector.h"
 
 using std::string;
 using std::vector;
@@ -83,10 +84,15 @@ int main() {
         cout << "3 - generuoti studentu vardus, pavardes ir pazymius " << endl;
         cout << "4 - baigti darba " << endl;
         cout << "5 - failo generavimas " << endl;
-        eiga = getInput<int,1,5>(
+        cout << "6 - konteineriu uzpildymas" << endl;
+        eiga = getInput<int,1,6>(
             "Jusu pasirinkimas: ",
-            "Iveskite skaiciu nuo 1 iki 5."
+            "Iveskite skaiciu nuo 1 iki 6."
         );
+        if(eiga == 6) {
+            lyginti_perskirstymus();
+            return 0;
+        }
         if(eiga == 4) {
             cout << "Darbas baigtas.";
             return 0;

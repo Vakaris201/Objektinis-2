@@ -40,6 +40,7 @@ void print(std::ostream& os, int pasirinkimas, vector<studentas>& A, int stud_sk
 void print(std::ostream& os, int pasirinkimas, deque<studentas>& A, int stud_skaicius);
 void print(std::ostream& os, int pasirinkimas, list<studentas>& A, int stud_skaicius);
 void failu_generavimas(const string& filename);
+void lyginti_perskirstymus();
 
 
 template <typename T>

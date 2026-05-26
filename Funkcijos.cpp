@@ -6,6 +6,7 @@
 #include <chrono>
 #include <stdexcept>
 #include "Funkcijos.h"
+#include "Vector.h"
 
 using std::cout;
 using std::cin;
@@ -200,4 +201,27 @@ void failu_generavimas(const string& filename) {
     auto end = high_resolution_clock::now();
     duration<double> diff = end - start;
     cout << "Failo generavimo laikas: " << diff.count() << endl;
+}
+
+void lyginti_perskirstymus() {
+    unsigned int n = 100000000;
+
+    vector<int> v1;
+    int v1_num = 0;
+    for(int i = 0; i < n; i++) {
+        auto senas_dydis = v1.capacity();
+        v1.push_back(i);
+        if(v1.capacity() != senas_dydis) v1_num++;
+    }
+
+    Vector<int> v2;
+    int v2_num = 0;
+    for(int i = 0; i < n; i++) {
+        auto senas_dydis = v2.capacity();
+        v2.push_back(i);
+        if(v2.capacity() != senas_dydis) v2_num++;
+    }
+
+    cout << "std::vector perskirstymai: " << v1_num << endl;
+    cout << "Vector perskirstymai: " << v2_num << endl;
 }
