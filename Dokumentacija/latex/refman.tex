@@ -26,7 +26,6 @@
   \ifPDFTeX
     \IfFormatAtLeastTF{2015/01/01}{\pdfsuppresswarningpagegroup=1}{}
   \fi
-  \newenvironment{NoHyper}{}{}
   \usepackage{doxygen}
   \usepackage{graphicx}
   \iftutex
@@ -156,6 +155,28 @@
   \doxynewunicodechar{³}{${}^{3}$}% Superscript three
 \fi
   % Hyperlinks
+    % Hyperlinks (required, but should be loaded last)
+    \ifPDFTeX
+      \usepackage[pdftex,pagebackref=true]{hyperref}
+    \else
+      \ifXeTeX
+        \usepackage[xetex,pagebackref=true]{hyperref}
+      \else
+        \ifLuaTeX
+          \usepackage[luatex,pagebackref=true]{hyperref}
+        \else
+          \usepackage[ps2pdf,pagebackref=true]{hyperref}
+        \fi
+      \fi
+    \fi
+    \hypersetup{%
+      colorlinks=true,%
+      linkcolor=blue,%
+      citecolor=blue,%
+      unicode,%
+      pdftitle={My Project},%
+      pdfsubject={}%
+    }
   % Custom commands used by the header
   % Custom commands
   \newcommand{\clearemptydoublepage}{%
@@ -180,6 +201,12 @@
 \begin{document}
   \raggedbottom
   % Titlepage & ToC
+    % To avoid duplicate page anchors due to reuse of same numbers for
+    % the index (be it as roman numbers)
+    \hypersetup{pageanchor=false,
+                bookmarksnumbered=true,
+                pdfencoding=unicode
+               }
   \pagenumbering{alph}
   \begin{titlepage}
   \vspace*{7cm}
@@ -194,38 +221,18 @@
   \tableofcontents
   \clearemptydoublepage
   \pagenumbering{arabic}
+  % re-enable anchors again
+  \hypersetup{pageanchor=true}
 %--- Begin generated contents ---
-\chapter{Hierarchical Index}
-\input{hierarchy}
 \chapter{Class Index}
 \input{annotated}
 \chapter{File Index}
 \input{files}
 \chapter{Class Documentation}
-\input{class_studentas}
-\input{structstudentas}
-\input{class_zmogus}
-\input{structzmogus}
+\input{class_vector}
 \chapter{File Documentation}
-\input{_funkcijos_8cpp}
-\input{_funkcijos_8cpp_source}
-\input{_funkcijos_8h}
-\input{_funkcijos_8h_source}
-\input{main_8cpp}
-\input{main_8cpp_source}
-\input{_person_8h}
-\input{_person_8h_source}
-\input{_r_e_a_d_m_e_8md}
-\input{_studentas_8cpp}
-\input{_studentas_8cpp_source}
-\input{_studentas_8h}
-\input{_studentas_8h_source}
-\input{_test_8cpp}
-\input{_test_8cpp_source}
-\input{_zmones_8cpp}
-\input{_zmones_8cpp_source}
-\input{_zmones_8h}
-\input{_zmones_8h_source}
+\input{_vector_8h}
+\input{_vector_8h_source}
 %--- End generated contents ---
 % Index
   \backmatter
