@@ -6,7 +6,8 @@
 #include <stdexcept>
 #include <algorithm>
 #include <initializer_list>
-#include <utility> 
+#include <utility>
+#include <type_traits>
 
 template <typename T>
 class Vector {
@@ -60,7 +61,7 @@ class Vector {
         move_from(std::move(other));
     }
 
-    template<class InputIt>
+    template<class InputIt, typename = std::enable_if_t<!std::is_integral<InputIt>::value>>
     Vector(InputIt first, InputIt last)  //Constructor with range: v(x.begin(), x.end())
         : data_(nullptr), size_(0), capacity_(0) {
         for(auto it = first; it != last; it++) {
@@ -122,7 +123,7 @@ class Vector {
     void assign(std::initializer_list<T> list) { //Assign new contents from initializer list: v.assign{a, b, c}
         assign(list.begin(), list.end());
     }
-    template <class InputIt> 
+    template <class InputIt, typename = std::enable_if_t<!std::is_integral<InputIt>::value>> 
     void assign(InputIt first, InputIt last) { //Assign new contents from range: v.assign(x.begin(), x.end())
         clear();
         for(auto it = first; it != last; it++) {
@@ -235,7 +236,7 @@ class Vector {
         return data_ + index;
     }
 
-    template <class InputIt>
+    template <class InputIt, typename = std::enable_if_t<!std::is_integral<InputIt>::value>>
     iterator insert(const_iterator pos, InputIt first, InputIt last) {//Insert elements from range [first, last) before pos: v.insert(pos, x.begin(), x.end())
         size_type index = pos - data_;
         size_type count = std::distance(first, last);
@@ -270,7 +271,7 @@ class Vector {
             destroy_at(data_ + index);
         }
         construct_at(data_ + index, std::forward<Args>(args)...);
-        size++;
+        size_++;
         return data_ + index;
     }
 
@@ -371,6 +372,10 @@ class Vector {
         }
     }
 
+    template <class... Args>
+    void construct_at(pointer p, Args&&... args) { //Construct element at pointer p with forwarded args
+        std::allocator_traits<allocator_type>::construct(allocator_, p, std::forward<Args>(args)...);
+    }
     void construct_at(pointer p, const T& value) { //Construct element at pointer p with value
         std::allocator_traits<allocator_type>::construct(allocator_, p, value);
     }

@@ -197,10 +197,12 @@ void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string 
     );
     double (*strategija)(vector<int>&);
     (grade_choice == 1)? strategija = vidurkis : strategija = mediana;
-
+    auto s = high_resolution_clock::now();
     for(int i = 0; i < stud_skaicius; i++) {
         A[i].skaiciuotiRez(strategija);
     }
+    auto e = high_resolution_clock::now();
+    duration<double> t = e - s;
     cout << "Ar norite atskirti vargsiukus nuo kietiaku? (t/n) ";
     string divide_choice;
     divide_choice = raide_choice(
@@ -283,11 +285,12 @@ void outputas(vector<Studentas>& A, int stud_skaicius, double test_time, string 
         v_fout.close();
         k_fout.close();
         cout << filename << " Failo skaitymo laikas: " << test_time << endl;
+        cout << filename << " Galutiniu balu skaiciavimo laikas: " << t.count() << endl;
         cout << filename << " Rusiavimo laikas: " << diff1.count() << endl;
         cout << filename << " Vargsiuku ir kietiaku atskyrimo laikas: " << diff2.count() << endl;
         cout << filename << " Vargsiuku isvedimo i faila laikas: " << diff3.count() << endl;
         cout << filename << " Kietiaku isvedimo i faila laikas: " << diff4.count() << endl;
-        cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() << endl;
+        cout << filename << " Testu laikas: " << test_time + diff1.count() + diff2.count() + diff3.count() + diff4.count() + t.count() << endl;
     }
     else {
         rusiavimas(A, sort_choice);
